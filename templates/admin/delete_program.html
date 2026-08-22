@@ -1,0 +1,52 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Delete Program{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-card" style="max-width:700px;margin:auto;">
+
+    <h2>🗑 Delete Program</h2>
+
+    <br>
+
+    <p>
+        Are you sure you want to permanently delete
+        <strong>{{ program.title }}</strong>?
+    </p>
+
+    <br>
+
+    {% if program.image %}
+
+        <img src="{{ url_for('static',
+        filename='uploads/' + program.image) }}"
+        width="250"
+        style="border-radius:12px;">
+
+        <br><br>
+
+    {% endif %}
+
+    <form method="POST">
+
+        <a href="{{ url_for('admin.programs') }}"
+           class="btn btn-primary">
+
+            Cancel
+
+        </a>
+
+        <button
+            type="submit"
+            class="btn btn-danger">
+
+            🗑 Delete Permanently
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

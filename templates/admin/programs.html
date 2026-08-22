@@ -1,0 +1,113 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Programs{% endblock %}
+
+{% block content %}
+
+<div class="topbar">
+    <div>
+        <h2>Programs</h2>
+        <p>Manage all foundation programs.</p>
+    </div>
+
+    <a href="{{ url_for('admin.add_program') }}"
+       class="btn btn-success">
+        + Add Program
+    </a>
+</div>
+
+<table class="message-table">
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Featured</th>
+            <th>Order</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for program in programs %}
+
+        <tr>
+
+            <td>{{ loop.index }}</td>
+
+            <td>
+
+                {% if program.image %}
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/' + program.image) }}"
+                        width="70"
+                        style="border-radius:10px;">
+
+                {% else %}
+
+                    —
+
+                {% endif %}
+
+            </td>
+
+            <td>{{ program.title }}</td>
+
+            <td>{{ program.status }}</td>
+
+            <td>
+
+                {% if program.featured %}
+
+                    ✅
+
+                {% else %}
+
+                    —
+
+                {% endif %}
+
+            </td>
+
+            <td>{{ program.display_order }}</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('admin.edit_program', id=program.id) }}"
+                    class="btn btn-primary">
+                    Edit
+                </a>
+
+                <a
+                    href="{{ url_for('admin.delete_program', id=program.id) }}"
+                    class="btn btn-danger"
+                    onclick="return confirm('Delete this program?');">
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% else %}
+
+        <tr>
+
+            <td colspan="7" style="text-align:center; padding:40px;">
+                No programs found.
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

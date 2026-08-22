@@ -1,0 +1,140 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Edit Program{% endblock %}
+
+{% block content %}
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;">
+
+    <div>
+        <h2>Edit Program</h2>
+        <p style="color:#64748b;">
+            Update your foundation program.
+        </p>
+    </div>
+
+    <a href="{{ url_for('admin.programs') }}"
+       class="btn btn-warning">
+        ← Back
+    </a>
+
+</div>
+
+<div class="dashboard-card">
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Program Title</label>
+
+    <input
+        type="text"
+        name="title"
+        class="form-control"
+        value="{{ program.title }}"
+        required>
+
+    <br>
+
+    <label>Short Description</label>
+
+    <textarea
+        name="short_description"
+        class="form-control"
+        rows="4"
+        required>{{ program.short_description }}</textarea>
+
+    <br>
+
+    <label>Full Description</label>
+
+    <textarea
+        name="full_description"
+        class="form-control"
+        rows="8">{{ program.full_description }}</textarea>
+
+    <br>
+
+    <label>Display Order</label>
+
+    <input
+        type="number"
+        name="display_order"
+        class="form-control"
+        value="{{ program.display_order }}">
+
+    <br>
+
+    <label>Status</label>
+
+    <select
+        name="status"
+        class="form-control">
+
+        <option value="Published"
+        {% if program.status=="Published" %}selected{% endif %}>
+            Published
+        </option>
+
+        <option value="Draft"
+        {% if program.status=="Draft" %}selected{% endif %}>
+            Draft
+        </option>
+
+    </select>
+
+    <br>
+
+    <label>
+
+        <input
+            type="checkbox"
+            name="featured"
+            {% if program.featured %}checked{% endif %}>
+
+        Featured Program
+
+    </label>
+
+    <br><br>
+
+    <label>Current Image</label>
+
+    <br>
+
+    {% if program.image %}
+
+        <img
+            src="{{ url_for('static', filename='uploads/' + program.image) }}"
+            width="220"
+            style="border-radius:12px;margin:10px 0;">
+
+    {% else %}
+
+        <p>No image uploaded.</p>
+
+    {% endif %}
+
+    <br>
+
+    <label>Replace Image</label>
+
+    <input
+        type="file"
+        name="image"
+        class="form-control">
+
+    <br><br>
+
+    <button
+        type="submit"
+        class="btn btn-success">
+
+        💾 Update Program
+
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}

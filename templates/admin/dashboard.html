@@ -1,0 +1,112 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h2>Dashboard Overview</h2>
+
+    <p>Welcome back, Administrator.</p>
+
+    <div class="stats-grid">
+
+    <!-- Messages -->
+    <div class="stat-card">
+        <h3>📩 Messages</h3>
+        <h1>{{ total_messages }}</h1>
+        <span>Total Contact Messages</span>
+    </div>
+
+
+    <!-- Members -->
+<div class="stat-card">
+
+    <h3>👥 Members</h3>
+
+    <h1>{{ total_members }}</h1>
+
+    <span>Approved Members</span>
+
+    <hr>
+
+    <p>🟢 Approved: {{ approved_members }}</p>
+
+    <p>🟡 Pending: {{ pending_members }}</p>
+
+    <p>🔴 Rejected: {{ rejected_members }}</p>
+
+</div>
+
+    <!-- Donations -->
+<div class="stat-card">
+
+    <h3>❤️ Donations</h3>
+
+    <h2>KSh {{ "{:,.2f}".format(total_donations) }}</h2>
+
+    <span>Total Received Donations</span>
+
+    <hr>
+
+    <p>🟢 Received: {{ received_donations }}</p>
+
+    <p>🟡 Pending: {{ pending_donations }}</p>
+
+</div>
+
+    <!-- News -->
+    <div class="stat-card">
+        <h3>📰 News</h3>
+        <h1>{{ total_news }}</h1>
+        <span>Published Articles</span>
+    </div>
+
+</div>
+
+    <div class="recent-table">
+
+        <h2>Recent Messages</h2>
+
+        <table class="message-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Subject</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for message in recent_messages %}
+
+                <tr>
+
+                    <td>{{ message.full_name }}</td>
+
+                    <td>{{ message.email }}</td>
+
+                    <td>{{ message.subject }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

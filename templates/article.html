@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ article.title }}
+{% endblock %}
+
+{% block content %}
+
+<section class="news-article">
+
+    <div class="container">
+
+        <a href="/news" class="back-link">
+            ← Back to News
+        </a>
+
+        <br><br>
+
+        <span class="article-category">
+            {{ article.category }}
+        </span>
+
+        <h1>
+            {{ article.title }}
+        </h1>
+
+        <p class="article-meta">
+
+            By <strong>{{ article.author }}</strong>
+
+            |
+
+            {{ article.created_at.strftime("%d %B %Y") }}
+
+        </p>
+
+        {% if article.image %}
+
+        <img
+            src="{{ url_for('static',
+            filename='uploads/news/' + article.image) }}"
+            alt="{{ article.title }}"
+            class="article-image">
+
+        {% endif %}
+
+        <div class="article-content">
+
+            {{ article.content }}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

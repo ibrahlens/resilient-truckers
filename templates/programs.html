@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Our Programs{% endblock %}
+
+{% block content %}
+
+<section class="programs-page">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <h1>Our Programs</h1>
+
+            <p>
+                We are committed to improving the welfare, safety, health,
+                and professional growth of truck drivers across Kenya through
+                impactful programs and initiatives.
+            </p>
+
+        </div>
+
+        {% if programs %}
+
+        <div class="program-grid">
+
+            {% for program in programs %}
+
+            <div class="program-card">
+
+                {% if program.featured %}
+
+                <span class="featured-badge">
+
+                    ⭐ Featured
+
+                </span>
+
+                {% endif %}
+
+                {% if program.image %}
+
+                <img
+                    src="{{ url_for('static',
+                    filename='uploads/' + program.image) }}"
+                    alt="{{ program.title }}">
+
+                {% endif %}
+
+                <div class="program-content">
+
+                    <div class="program-icon">
+
+                        <i class="{{ program.icon }}"></i>
+
+                    </div>
+
+                    <h3>
+
+                        {{ program.title }}
+
+                    </h3>
+
+                    <p>
+
+                        {{ program.short_description }}
+
+                    </p>
+
+                    {% if program.full_description %}
+
+                    <details>
+
+                        <summary>
+
+                            Learn More
+
+                        </summary>
+
+                        <p style="margin-top:15px;">
+
+                            {{ program.full_description }}
+
+                        </p>
+
+                    </details>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-programs">
+
+            <h2>No Programs Available</h2>
+
+            <p>
+
+                Programs will appear here once they are published
+                by the administrator.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

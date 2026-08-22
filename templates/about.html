@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section class="about-hero">
+
+    <div class="container">
+
+        <h1>About Resilient Truckers Foundation</h1>
+
+        <p>
+            <strong>Resilience in Every Mile.</strong><br>
+            Supporting Truck Drivers Through Care, Training and Community.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     OUR STORY
+===================================== -->
+
+<section class="about-story">
+
+    <div class="container about-grid">
+
+        <div class="about-image">
+
+            <img
+                src="{{ url_for('static', filename='images/about.jpeg') }}"
+                alt="Truck drivers supporting Kenya's economy">
+
+        </div>
+
+        <div class="about-text">
+
+            <h2>Our Story</h2>
+
+            <p>
+
+                <strong>Resilient Truckers Foundation</strong> is a legally
+                registered non-profit organization committed to improving
+                the welfare and quality of life of truck drivers across Kenya.
+
+            </p>
+
+            <p>
+
+                Every day, truck drivers work tirelessly to transport food,
+                medicine, fuel, construction materials and countless other
+                essential goods that keep our nation moving. Their dedication
+                powers businesses, connects communities and supports Kenya's
+                economic growth.
+
+            </p>
+
+            <p>
+
+                Despite their vital contribution, many truck drivers face
+                demanding working conditions, long periods away from their
+                families, health challenges, financial pressures and limited
+                access to welfare and support services. These realities inspired
+                the creation of our foundation.
+
+            </p>
+
+            <p>
+
+                We exist to provide practical assistance, promote healthier
+                lifestyles, encourage continuous professional development and
+                build a strong, supportive community where every truck driver
+                feels valued, respected and empowered to thrive.
+
+            </p>
+
+            <p>
+
+                Guided by our motto,
+                <strong>"Resilience in Every Mile,"</strong>
+                we are committed to creating lasting positive change by
+                improving drivers' well-being, promoting road safety and
+                strengthening the communities that depend on them every day.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     SERVICES
+===================================== -->
+
+<section class="services-section">
+
+    <div class="container">
+
+        <h2>What We Offer</h2>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-handshake"></i>
+
+                <h3>Hospitality</h3>
+
+                <p>
+
+                    Providing a welcoming and supportive
+                    environment for truck drivers.
+
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>Moral, Social & Financial Guidance</h3>
+
+                <p>
+
+                    Helping drivers and their families
+                    make informed life and financial decisions.
+
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-road"></i>
+
+                <h3>Progressive Refresher Training</h3>
+
+                <p>
+
+                    Continuous professional training
+                    to improve road safety and driving excellence.
+
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-stethoscope"></i>
+
+                <h3>Regular Medical Checks</h3>
+
+                <p>
+
+                    Promoting healthy lifestyles through
+                    regular medical checkups and wellness programs.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     WHY TRUCKERS MATTER
+===================================== -->
+
+<section class="why-section">
+
+    <div class="container">
+
+        <h2>Why Truck Drivers Matter</h2>
+
+        <p>
+
+            Truck drivers are the backbone of Kenya's economy.
+            They connect farmers to markets,
+            businesses to customers,
+            hospitals to medical supplies
+            and families to essential goods.
+
+        </p>
+
+        <p>
+
+            By investing in truck drivers,
+            we strengthen supply chains,
+            improve road safety,
+            support families
+            and contribute to national development.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =====================================
+     IMPACT
+===================================== -->
+
+<section class="impact-section">
+
+    <div class="container">
+
+        <h2>Our Impact</h2>
+
+        <p>
+            Every journey we make together creates stronger drivers,
+            safer roads and healthier communities.
+        </p>
+
+        <div class="impact-grid">
+
+            <div class="impact-card">
+
+                <h1 class="counter" data-target="1000">0</h1>
+
+                <p>Truck Drivers Reached</p>
+
+            </div>
+
+            <div class="impact-card">
+
+                <h1 class="counter" data-target="150">0</h1>
+
+                <p>Training Sessions</p>
+
+            </div>
+
+            <div class="impact-card">
+
+                <h1 class="counter" data-target="47">0</h1>
+
+                <p>Counties Served</p>
+
+            </div>
+
+            <div class="impact-card">
+
+                <h1 class="counter" data-target="150">0</h1>
+
+                <p>Medical Checkups</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =====================================
+     DONATION CTA
+===================================== -->
+
+<section class="about-cta">
+
+    <div class="container">
+
+       <h2>Stand With Kenya's Truck Drivers</h2>
+        <p>
+
+            Your generosity helps us provide training, medical outreach, wellness 
+            programs and essential support to truck drivers across Kenya.
+        </p>
+
+        <div class="donation-box">
+
+            <h3>Support the Foundation</h3>
+
+            <p><strong>Paybill:</strong> 522533</p>
+
+            <p><strong>Account:</strong> 8086512</p>
+
+        </div>
+
+        <br>
+
+        <a href="/donate" class="btn btn-primary">
+
+            Donate Today
+
+        </a>
+
+    </div>
+
+</section>
+
+<section class="commitment-section">
+
+<div class="container">
+
+<h2>Our Commitment</h2>
+
+<p>
+We are committed to building a future where every truck driver is
+healthy, respected, professionally empowered and supported by a
+strong community. Through partnerships, education and compassionate
+service, we aim to create lasting change for drivers, their families
+and the communities they serve.
+</p>
+
+</div>
+
+</section>
+
+{% endblock %}

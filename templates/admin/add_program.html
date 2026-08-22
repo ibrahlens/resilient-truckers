@@ -1,0 +1,205 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Add Program{% endblock %}
+
+{% block content %}
+
+<div style="max-width:950px;margin:auto;">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+
+        <div>
+
+            <h2>➕ Add New Program</h2>
+
+            <p style="color:#64748b;">
+                Create and publish a new foundation program.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('admin.programs') }}"
+           class="btn btn-warning">
+
+            ← Back to Programs
+
+        </a>
+
+    </div>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <!-- ========================= -->
+        <!-- Program Information -->
+        <!-- ========================= -->
+
+        <div class="dashboard-card">
+
+            <h3>📚 Program Information</h3>
+
+            <br>
+
+            <label>Program Title</label>
+
+            <input
+                type="text"
+                name="title"
+                class="form-control"
+                placeholder="e.g. Driver Safety Training"
+                required>
+
+            <br>
+
+            <label>Short Description</label>
+
+            <textarea
+                name="short_description"
+                rows="4"
+                class="form-control"
+                placeholder="A short summary shown on the Programs page."
+                required></textarea>
+
+            <br>
+
+            <label>Full Description</label>
+
+            <textarea
+                name="full_description"
+                rows="8"
+                class="form-control"
+                placeholder="Detailed information about this program."></textarea>
+
+        </div>
+
+        <br>
+
+        <!-- ========================= -->
+        <!-- Appearance -->
+        <!-- ========================= -->
+
+        <div class="dashboard-card">
+
+            <h3>🎨 Appearance</h3>
+
+            <br>
+
+            <label>Font Awesome Icon</label>
+
+            <input
+                type="text"
+                name="icon"
+                class="form-control"
+                value="fa-solid fa-truck"
+                placeholder="fa-solid fa-truck">
+
+            <small style="color:#64748b;">
+
+                Examples:<br>
+
+                • fa-solid fa-truck<br>
+                • fa-solid fa-heart<br>
+                • fa-solid fa-handshake<br>
+                • fa-solid fa-user-doctor<br>
+                • fa-solid fa-book
+
+            </small>
+
+            <br><br>
+
+            <label>Program Image</label>
+
+            <input
+                type="file"
+                name="image"
+                class="form-control">
+
+            <small style="color:#64748b;">
+                Recommended size: 1200 × 700 pixels.
+            </small>
+
+        </div>
+
+        <br>
+
+        <!-- ========================= -->
+        <!-- Publishing -->
+        <!-- ========================= -->
+
+        <div class="dashboard-card">
+
+            <h3>🚀 Publishing</h3>
+
+            <br>
+
+            <label>Display Order</label>
+
+            <input
+                type="number"
+                name="display_order"
+                class="form-control"
+                value="1"
+                min="1">
+
+            <br>
+
+            <label>Status</label>
+
+            <select
+                name="status"
+                class="form-control">
+
+                <option value="Published">
+                    Published
+                </option>
+
+                <option value="Draft">
+                    Draft
+                </option>
+
+            </select>
+
+            <br>
+
+            <label style="display:flex;align-items:center;gap:10px;">
+
+                <input
+                    type="checkbox"
+                    name="featured">
+
+                Feature this program on the homepage
+
+            </label>
+
+        </div>
+
+        <br>
+
+        <!-- ========================= -->
+        <!-- Save -->
+        <!-- ========================= -->
+
+        <div style="display:flex;justify-content:flex-end;gap:15px;">
+
+            <a href="{{ url_for('admin.programs') }}"
+               class="btn btn-danger">
+
+                Cancel
+
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-success">
+
+                💾 Save Program
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

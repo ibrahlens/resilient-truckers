@@ -1,0 +1,76 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Add News{% endblock %}
+
+{% block content %}
+
+<h2>Publish New Article</h2>
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+    <label>Article Title</label>
+
+    <input
+        type="text"
+        name="title"
+        required>
+
+    <br><br>
+
+    <label>Category</label>
+
+    <select name="category">
+
+        <option value="General">General</option>
+
+        <option value="Road Safety">Road Safety</option>
+
+        <option value="Health">Health</option>
+
+        <option value="Education">Education</option>
+
+        <option value="Community Outreach">Community Outreach</option>
+
+        <option value="Events">Events</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Summary</label>
+
+    <textarea
+        name="summary"
+        rows="4"
+        maxlength="300"
+        placeholder="Write a short summary (maximum 300 characters)..."
+        required></textarea>
+
+    <br><br>
+
+    <label>Full Article</label>
+
+    <textarea
+        name="content"
+        rows="12"
+        required></textarea>
+
+    <br><br>
+
+    <label>Featured Image</label>
+
+    <input
+        type="file"
+        name="image"
+        accept=".jpg,.jpeg,.png,.webp">
+
+    <br><br>
+
+    <button type="submit">
+        Publish Article
+    </button>
+
+</form>
+
+{% endblock %}

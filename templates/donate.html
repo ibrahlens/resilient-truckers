@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+
+{% block title %}Support Our Mission{% endblock %}
+
+{% block content %}
+
+<section class="donate-section">
+
+    <div class="donate-container">
+
+        <!-- =====================================
+             DONATION INTRODUCTION
+        ====================================== -->
+
+        <div class="donation-info">
+
+            <span class="donation-badge">
+                ❤️ Support Our Mission
+            </span>
+
+            <h1>
+                Help Us Make
+                <span>a Difference</span>
+            </h1>
+
+            <p class="lead">
+                Your generosity helps the
+                <strong>Resilient Truckers Foundation</strong>
+                support truck drivers, promote road safety,
+                strengthen communities and create lasting
+                impact across Kenya.
+            </p>
+
+
+            <!-- =====================================
+                 IMPACT AREAS
+            ====================================== -->
+
+            <div class="impact-box">
+
+                <div class="impact-item">
+
+                    <div class="impact-icon">
+                        🚛
+                    </div>
+
+                    <div>
+                        <h4>Support Truck Drivers</h4>
+
+                        <p>
+                            Help improve the welfare and wellbeing
+                            of truck drivers and their families.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="impact-item">
+
+                    <div class="impact-icon">
+                        🛣️
+                    </div>
+
+                    <div>
+                        <h4>Promote Road Safety</h4>
+
+                        <p>
+                            Support initiatives that encourage
+                            safer roads and responsible driving.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="impact-item">
+
+                    <div class="impact-icon">
+                        🤝
+                    </div>
+
+                    <div>
+                        <h4>Strengthen Communities</h4>
+
+                        <p>
+                            Help us reach vulnerable communities
+                            through meaningful programs.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             DONATION FORM CARD
+        ====================================== -->
+
+        <div class="donation-card">
+
+            <div class="donation-card-header">
+
+                <h2>Make a Donation</h2>
+
+                <p>
+                    Every contribution, big or small, helps us
+                    continue our work.
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 FLASH MESSAGES
+            ====================================== -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+
+
+
+            <!-- =====================================
+     M-PESA PAYMENT INFORMATION
+===================================== -->
+
+<div class="payment-info">
+
+    <div class="payment-icon">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+    </div>
+
+    <div class="payment-content">
+
+        <h4>Make Your M-Pesa Donation</h4>
+
+        <p>
+            You can make your donation through M-Pesa using the
+            details below.
+        </p>
+
+        {% if settings and settings.mpesa_paybill %}
+
+            <div class="mpesa-detail">
+
+                <span>Paybill / Till Number</span>
+
+                <strong>
+                    {{ settings.mpesa_paybill }}
+                </strong>
+
+            </div>
+
+        {% endif %}
+
+        {% if settings and settings.mpesa_account %}
+
+            <div class="mpesa-detail">
+
+                <span>Account Name / Number</span>
+
+                <strong>
+                    {{ settings.mpesa_account }}
+                </strong>
+
+            </div>
+
+        {% endif %}
+
+        <div class="mpesa-steps">
+
+            <p><strong>How to donate:</strong></p>
+
+            <ol>
+                <li>Open M-Pesa on your phone.</li>
+                <li>Select <strong>Lipa na M-Pesa</strong>.</li>
+                <li>Select <strong>Pay Bill</strong>.</li>
+                <li>Enter the Paybill number <b>522533</b>.</li>
+                <li>Enter the account <b>8086512</b>.</li>
+                <li>Enter your donation amount.</li>
+                <li>Confirm the transaction.</li>
+            </ol>
+
+        </div>
+
+        <p class="payment-note">
+            After completing your payment, submit your details
+            below so our team can verify your donation.
+        </p>
+
+    </div>
+
+</div>
+
+            <!-- =====================================
+                 DONATION FORM
+            ====================================== -->
+
+            <form
+                method="POST"
+                action="{{ url_for('donate.donate') }}"
+                class="donation-form"
+                id="donationForm"
+            >
+
+                <!-- =================================
+                     FULL NAME
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="full_name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- =================================
+                     EMAIL
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- =================================
+                     PHONE
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="07XXXXXXXX"
+                        autocomplete="tel"
+                        required
+                    >
+
+                    <small>
+                        Enter a valid Kenyan phone number.
+                    </small>
+
+                </div>
+
+
+                <!-- =================================
+                     DONATION AMOUNT
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="amount">
+                        Donation Amount
+                    </label>
+
+                    <div class="amount-input">
+
+                        <span>KSh</span>
+
+                        <input
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            min="1"
+                            step="1"
+                            placeholder="Enter amount"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     DONATION REASON — OPTIONAL
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="reason">
+                        Donation Reason
+                        <span>(Optional)</span>
+                    </label>
+
+                    <select
+                        id="reason"
+                        name="reason"
+                    >
+
+                        <option value="">
+                            Select a reason
+                        </option>
+
+                        <option value="General Support">
+                            General Support
+                        </option>
+
+                        <option value="Driver Welfare">
+                            Driver Welfare
+                        </option>
+
+                        <option value="Family Support">
+                            Family Support
+                        </option>
+
+                        <option value="Road Safety">
+                            Road Safety
+                        </option>
+
+                        <option value="Community Programs">
+                            Community Programs
+                        </option>
+
+                        <option value="Emergency Support">
+                            Emergency Support
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =================================
+                     MESSAGE — OPTIONAL
+                ================================== -->
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                        <span>(Optional)</span>
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Leave a message of support..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- =================================
+                     SUBMIT BUTTON
+                ================================== -->
+
+                <button
+                    type="submit"
+                    class="donate-btn"
+                    id="donateButton"
+                >
+
+                    <span class="btn-text">
+                        Submit Donation
+                    </span>
+
+                    <span
+                        class="btn-loading"
+                        style="display:none;"
+                    >
+                        Submitting...
+                    </span>
+
+                </button>
+
+
+                <!-- =================================
+                     DONATION NOTE
+                ================================== -->
+
+                <p class="donation-note">
+
+                    After submitting your donation details,
+                    our team will verify the payment manually
+                    and update its status.
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

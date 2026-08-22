@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    
+          <title>
+    {% block title %}
+        {{ settings.meta_title or "Resilient Truckers Foundation" }}
+    {% endblock %}
+</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- =====================================
+         Navigation
+    ====================================== -->
+
+    <nav class="navbar">
+
+        
+        <div class="logo">
+
+    {% if settings.logo %}
+
+        <img
+            src="{{ url_for('static', filename='uploads/' + settings.logo) }}"
+            alt="Logo"
+            style="height:60px; vertical-align:middle;">
+
+    {% endif %}
+
+    <h2>
+        {{ settings.foundation_name or "Resilient Truckers Foundation" }}
+    </h2>
+
+</div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/about">About</a></li>
+
+            <li><a href="/programs">Programs</a></li>
+
+            <li><a href="/news">News</a></li>
+
+            <li><a href="/contact">Contact</a></li>
+
+        </ul>
+
+    
+        </nav>
+<!-- =====================================
+     FLASH MESSAGES
+===================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        <div class="flash-container">
+
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+<!-- =====================================
+     Main Content
+====================================== -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+       
+
+
+    <!-- =====================================
+         Footer
+    ====================================== -->
+
+    <footer>
+
+        <div class="container">
+
+          <h3>
+    {{ settings.foundation_name or "Resilient Truckers Foundation" }}
+</h3>  
+
+            <p>
+    {{ settings.meta_description }}
+</p>
+
+        <div class="footer-icons">
+
+    {% if settings.facebook %}
+    <a href="{{ settings.facebook }}" target="_blank">
+        <i class="fa-brands fa-facebook fa-lg"></i>
+    </a>
+    {% endif %}
+
+    {% if settings.email %}
+    <a href="mailto:{{ settings.email }}">
+        <i class="fa-solid fa-envelope fa-lg"></i>
+    </a>
+    {% endif %}
+
+    {% if settings.whatsapp %}
+    <a href="{{ settings.whatsapp_link }}">
+        <i class="fa-solid fa-whatsapp fa-lg"></i>
+    </a>
+    {% endif %}
+    
+    {% if settings.phone %}
+    <a href="tel:{{ settings.phone }}">
+        <i class="fa-solid fa-phone fa-lg"></i>
+    </a>
+    {% endif %}
+   
+</div>   
+
+            <br>
+
+            
+            <p>
+    &copy; {{ settings.copyright or "2026 Resilient Truckers Foundation. All Rights Reserved." }}
+</p>
+
+        </div>
+
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/donate.js') }}"></script>
+    
+    
+</body>
+
+</html>

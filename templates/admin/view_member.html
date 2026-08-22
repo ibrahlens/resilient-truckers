@@ -1,0 +1,124 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Member Details{% endblock %}
+
+{% block content %}
+
+<h2>Member Details</h2>
+
+<hr>
+
+<p><strong>Full Name:</strong> {{ member.full_name }}</p>
+
+<p><strong>Email:</strong> {{ member.email }}</p>
+
+<p><strong>Phone:</strong> {{ member.phone }}</p>
+
+<p><strong>County:</strong> {{ member.county }}</p>
+
+<p><strong>Occupation:</strong> {{ member.occupation }}</p>
+
+<p>
+    <strong>Truck Driver:</strong>
+
+    {% if member.is_driver %}
+        Yes
+    {% else %}
+        No
+    {% endif %}
+</p>
+
+<p>
+    <strong>Vehicle Registration:</strong>
+    {{ member.vehicle_registration or "N/A" }}
+</p>
+
+<p>
+    <strong>Driving Licence:</strong>
+    {{ member.driving_license or "N/A" }}
+</p>
+
+<p>
+    <strong>Company / SACCO:</strong>
+    {{ member.company or "N/A" }}
+</p>
+
+<p>
+    <strong>Experience:</strong>
+    {{ member.experience or "N/A" }}
+</p>
+
+<p>
+    <strong>Primary Interest</strong>
+</p>
+
+<div style="background:#eef7ff;padding:15px;border-radius:8px;margin-bottom:20px;">
+
+    {{ member.joining_reason }}
+
+</div>
+
+<p>
+    <strong>Additional Information</strong>
+</p>
+
+<div style="background:#f5f5f5;padding:15px;border-radius:8px;">
+
+    {% if member.reason %}
+
+        {{ member.reason }}
+
+    {% else %}
+
+        <em>No additional information provided.</em>
+
+    {% endif %}
+
+</div>
+
+<br>
+
+<p>
+    <strong>Status:</strong>
+
+    {% if member.status == "Approved" %}
+        <span style="color:green;font-weight:bold;">
+            {{ member.status }}
+        </span>
+
+    {% elif member.status == "Rejected" %}
+        <span style="color:red;font-weight:bold;">
+            {{ member.status }}
+        </span>
+
+    {% else %}
+        <span style="color:orange;font-weight:bold;">
+            {{ member.status }}
+        </span>
+    {% endif %}
+</p>
+
+<hr>
+
+<a href="{{ url_for('admin.volunteers') }}"
+   class="btn btn-secondary">
+    ← Back to Members
+</a>
+
+<a href="{{ url_for('admin.approve_member', id=member.id) }}"
+   class="btn btn-primary">
+    Approve
+</a>
+
+<a href="{{ url_for('admin.reject_member', id=member.id) }}"
+   class="btn btn-primary">
+    Reject
+</a>
+
+<a href="{{ url_for('admin.delete_member', id=member.id) }}"
+   class="btn btn-primary"
+   onclick="return confirm('Delete this member?')">
+    Delete
+</a>
+
+{% endblock %}

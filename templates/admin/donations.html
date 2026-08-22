@@ -1,0 +1,320 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Donations{% endblock %}
+
+{% block content %}
+
+<!-- =====================================
+     PAGE HEADER
+===================================== -->
+
+<div class="page-header">
+
+    <div>
+
+        <h2>Donation Analytics</h2>
+
+        <p>
+            Monitor donations, payment status and fundraising performance.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     ANALYTICS CARDS
+===================================== -->
+
+<div class="analytics-grid">
+
+    <div class="analytics-card">
+
+        <div class="analytics-icon">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+
+        <div>
+
+            <span>Total Raised</span>
+
+            <h2>
+                KSh {{ "{:,.2f}".format(total_amount) }}
+            </h2>
+
+            <small>Successfully received donations</small>
+
+        </div>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <div class="analytics-icon">
+            <i class="fa-solid fa-calendar-days"></i>
+        </div>
+
+        <div>
+
+            <span>This Month</span>
+
+            <h2>
+                KSh {{ "{:,.2f}".format(monthly_total) }}
+            </h2>
+
+            <small>Current month's donations</small>
+
+        </div>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <div class="analytics-icon">
+            <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div>
+
+            <span>Donors</span>
+
+            <h2>{{ total_donors }}</h2>
+
+            <small>Unique supporters</small>
+
+        </div>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <div class="analytics-icon">
+            <i class="fa-solid fa-chart-column"></i>
+        </div>
+
+        <div>
+
+            <span>Average Gift</span>
+
+            <h2>
+                KSh {{ "{:,.2f}".format(average_donation) }}
+            </h2>
+
+            <small>Average donation amount</small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     STATUS CARDS
+===================================== -->
+
+<div class="status-grid">
+
+    <div class="status-card received">
+
+        <h4>Received</h4>
+
+        <h2>{{ total_received }}</h2>
+
+    </div>
+
+    <div class="status-card pending">
+
+        <h4>Pending</h4>
+
+        <h2>{{ total_pending }}</h2>
+
+    </div>
+
+    <div class="status-card failed">
+
+        <h4>Rejected</h4>
+
+        <h2>{{ total_rejected }}</h2>
+
+    </div>
+
+    <div class="status-card largest">
+
+        <h4>Largest Donation</h4>
+
+        <h2>
+
+            KSh {{ "{:,.0f}".format(largest_donation) }}
+
+        </h2>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     MONTHLY CHART
+===================================== -->
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h3>Monthly Donation Trend</h3>
+
+            <p>
+                Donation performance throughout the year.
+            </p>
+
+        </div>
+
+    </div>
+
+    <canvas id="monthlyChart"></canvas>
+
+</div>
+
+
+<br>
+
+<!-- =====================================
+     DONATION TABLE
+===================================== -->
+
+<div class="dashboard-card">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+
+    <div>
+
+        <h3>Donation History</h3>
+
+        <p style="color:#64748b;">
+            All donation records received by the foundation.
+        </p>
+
+    </div>
+
+</div>
+
+<table class="message-table">
+
+    <thead>
+
+        <tr>
+
+            <th>Donor</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+<tbody>
+
+{% if donations %}
+
+    {% for donation in donations %}
+
+    <tr>
+
+        <td>{{ donation.full_name }}</td>
+
+        <td>
+            KSh {{ "{:,.2f}".format(donation.amount) }}
+        </td>
+
+
+        <td>
+
+            {% if donation.status == "Received" %}
+
+                <span style="color:#16a34a;font-weight:600;">
+                    ● Received
+                </span>
+
+            {% elif donation.status == "Failed" %}
+
+                <span style="color:#dc2626;font-weight:600;">
+                    ● Failed
+                </span>
+
+            {% else %}
+
+                <span style="color:#d97706;font-weight:600;">
+                    ● Pending
+                </span>
+
+            {% endif %}
+
+        </td>
+
+        <td>
+            {{ donation.created_at.strftime("%d %b %Y") }}
+        </td>
+
+        <td>
+
+            <a href="{{ url_for('admin.view_donation', id=donation.id) }}"
+               class="btn btn-primary">
+                View
+            </a>
+
+            {% if donation.status != "Received" %}
+
+            <a href="{{ url_for('admin.receive_donation', id=donation.id) }}"
+               class="btn btn-success">
+                Receive
+            </a>
+
+            {% endif %}
+
+            <a href="{{ url_for('admin.delete_donation', id=donation.id) }}"
+               class="btn btn-danger"
+               onclick="return confirm('Delete this donation permanently?')">
+                Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+{% else %}
+
+<tr>
+
+    <td colspan="5" style="text-align:center;padding:40px;">
+        No donations have been received yet.
+    </td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const monthlyLabels = {{ monthly_labels | tojson }};
+const monthlyTotals = {{ monthly_totals | tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

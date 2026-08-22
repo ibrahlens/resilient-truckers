@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+News
+{% endblock %}
+
+{% block content %}
+
+<section class="news">
+
+    <div class="container">
+
+        <h2>Latest News & Articles</h2>
+
+        <br>
+
+        <div class="news-grid">
+
+            {% for article in articles %}
+
+            <div class="news-card">
+
+                {% if article.image %}
+
+                <img
+                    src="{{ url_for('static',
+                    filename='uploads/news/' + article.image) }}"
+                    alt="{{ article.title }}"
+                    class="news-image">
+
+                {% endif %}
+
+                <span class="news-category">
+
+                    {{ article.category }}
+
+                </span>
+
+                <h3>
+
+                    {{ article.title }}
+
+                </h3>
+
+                <small>
+
+                    {{ article.created_at.strftime("%d %B %Y") }}
+
+                </small>
+
+                <p>
+
+                    {{ article.summary }}
+
+                </p>
+
+                <a href="{{ url_for('news.article', id=article.id) }}">
+
+                    Read More →
+
+                </a>
+
+            </div>
+
+            {% else %}
+
+            <p>No news articles have been published yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

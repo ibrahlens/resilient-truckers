@@ -1,0 +1,399 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+
+<h2>System Settings</h2>
+<div class="settings-tabs">
+
+    <button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'general')">
+    🏢 General
+</button>
+
+    <button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'social')">
+    🌐 SOCIAL
+<button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'payments')">
+    💳 PAYMENTS
+</button>
+<button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'seo')">
+    🔍 SEO
+</button>
+<button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'branding')">
+    🎨 BRANDING
+</button>
+
+<button type="button"
+        class="tab-btn"
+        onclick="openTab(event, 'security')">
+    🔐 SECURITY
+</button>
+</div>
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Foundation Information -->
+    <div id="general" class="settings-section active-tab">
+
+    <div class="dashboard-card">
+
+        <h3>🏢 Foundation Information</h3>
+        <br>
+
+        <label>Foundation Name</label>
+        <input type="text"
+               name="foundation_name"
+               value="{{ settings.foundation_name or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Short Name</label>
+        <input type="text"
+               name="short_name"
+               value="{{ settings.short_name or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               value="{{ settings.email or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Phone</label>
+        <input type="text"
+               name="phone"
+               value="{{ settings.phone or '' }}"
+               class="form-control">
+
+        <br>
+        <label>WhatsApp</label>
+
+        <input type="text"
+               name="whatsapp"
+               value="{{ settings.whatsapp or '' }}"
+               class="form-control">
+
+        <br>
+        
+        <label>Website</label>
+        <input type="text"
+               name="website"
+               value="{{ settings.website or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Address</label>
+        <textarea name="address"
+                  rows="3"
+                  class="form-control">{{ settings.address or '' }}</textarea>
+    </div>
+</div>
+
+<br>
+
+    <!-- Social Media -->
+    <div id="social" class="settings-section">
+
+    <div class="dashboard-card">
+
+        <h3>🌐 Social Media</h3>
+
+        <br>
+
+        <label>Facebook</label>
+        <input type="text"
+               name="facebook"
+               value="{{ settings.facebook or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Instagram</label>
+        <input type="text"
+               name="instagram"
+               value="{{ settings.instagram or '' }}"
+               class="form-control">
+
+        <br>
+        
+        <label>WhatsApp</label>
+        <input type="text"
+               name="whatsapp_link"
+               value="{{ settings.whatsapp_link or '' }}"
+               class="form-control">
+        <br>
+
+        <label>Twitter / X</label>
+        <input type="text"
+               name="twitter"
+               value="{{ settings.twitter or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>LinkedIn</label>
+        <input type="text"
+               name="linkedin"
+               value="{{ settings.linkedin or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>YouTube</label>
+        <input type="text"
+               name="youtube"
+               value="{{ settings.youtube or '' }}"
+               class="form-control">
+    </div>
+</div>
+
+<br>
+
+    <!-- M-Pesa -->
+   <div id="payments" class="settings-section">
+
+    <div class="dashboard-card">
+
+        <h3>💳 M-Pesa Details</h3>
+
+        <br>
+
+        <label>Paybill / Till Number</label>
+        <input type="text"
+               name="mpesa_paybill"
+               value="{{ settings.mpesa_paybill or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Account Name</label>
+        <input type="text"
+               name="mpesa_account"
+               value="{{ settings.mpesa_account or '' }}"
+               class="form-control">
+
+   
+    </div>
+</div>
+
+<br>
+    <!-- SEO -->
+    <div id="seo" class="settings-section">
+
+    <div class="dashboard-card">
+
+        <h3>🔍 SEO</h3>
+
+        <br>
+
+        <label>Website Title</label>
+        <input type="text"
+               name="meta_title"
+               value="{{ settings.meta_title or '' }}"
+               class="form-control">
+
+        <br>
+
+        <label>Meta Description</label>
+        <textarea name="meta_description"
+                  rows="4"
+                  class="form-control">{{ settings.meta_description or '' }}</textarea>
+
+      </div>
+</div>
+
+<br>
+
+   <!-- Footer -->
+<div id="footer" class="settings-section">
+
+    <div class="dashboard-card">
+        <h3>© Footer</h3>
+
+        <br>
+
+        <label>Copyright</label>
+        <input type="text"
+               name="copyright"
+               value="{{ settings.copyright or '' }}"
+               class="form-control">
+
+    </div>
+</div>
+<button type="button"
+        class="tab-btn active"
+        onclick="openTab(event, 'footer')">
+    © Footer
+</button>
+    <br>
+<hr>
+
+<div id="branding" class="settings-section">
+
+    <div class="dashboard-card">
+
+    <h3>🎨 Branding</h3>
+
+    <br>
+
+
+    <label>Foundation Logo</label>
+
+{% if settings.logo %}
+
+    <img
+        src="{{ url_for('static',
+        filename='uploads/' + settings.logo) }}"
+        width="180">
+
+    <br><br>
+
+    <label>
+        <input
+            type="checkbox"
+            name="remove_logo">
+        Remove current logo
+    </label>
+
+    <br><br>
+
+{% endif %}
+
+<input
+    type="file"
+    name="logo"
+    class="form-control">
+
+   <label>Website Favicon</label>
+
+{% if settings.favicon %}
+
+    <br>
+
+    <img
+        src="{{ url_for('static', filename='uploads/' + settings.favicon) }}"
+        width="40">
+
+    <br><br>
+
+    <label>
+        <input type="checkbox" name="remove_favicon">
+        Remove current favicon
+    </label>
+
+    <br><br>
+
+{% endif %}
+
+<input
+    type="file"
+    name="favicon"
+    class="form-control">
+
+<br>
+
+    </div>
+</div>
+
+
+<br>
+<hr>
+
+<!-- =====================================
+     ADMIN LOGIN DETAILS
+===================================== -->
+
+<div id="security" class="settings-section">
+
+    <div class="dashboard-card">
+
+        <h3>🔐 Admin Login Details</h3>
+
+        <p style="color:#64748b; margin-bottom:25px;">
+            Update the username or password used to access the
+            RTF administration panel.
+        </p>
+
+        <!-- Current Password -->
+
+        <label>Current Password</label>
+
+        <input
+            type="password"
+            name="current_password"
+            class="form-control"
+            placeholder="Enter your current password"
+            autocomplete="current-password">
+
+        <br>
+
+        <!-- New Username -->
+
+        <label>New Username</label>
+
+        <input
+            type="text"
+            name="new_username"
+            class="form-control"
+            placeholder="Enter new username"
+            autocomplete="username">
+
+        <br>
+
+        <!-- New Password -->
+
+        <label>New Password</label>
+
+        <input
+            type="password"
+            name="new_password"
+            class="form-control"
+            placeholder="Enter new password"
+            autocomplete="new-password">
+
+        <br>
+
+        <!-- Confirm Password -->
+
+        <label>Confirm New Password</label>
+
+        <input
+            type="password"
+            name="confirm_password"
+            class="form-control"
+            placeholder="Confirm new password"
+            autocomplete="new-password">
+
+        <br>
+
+        <small style="color:#64748b;">
+            Leave the new username or password fields empty if you
+            don't want to change them.
+        </small>
+
+    </div>
+
+</div>
+
+    <button class="btn btn-success" type="submit">
+        💾 Save Settings
+    </button>
+
+</form>
+
+{% endblock %}

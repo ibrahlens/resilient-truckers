@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}RTF Admin{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ==============================
+         Sidebar
+    =============================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            {% if settings.logo %}
+
+                <img
+                    src="{{ url_for('static',
+                    filename='uploads/' + settings.logo) }}"
+                    class="sidebar-logo">
+
+            {% endif %}
+
+            <h2>
+                {{ settings.short_name or "RTF" }}
+            </h2>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="{{ url_for('admin.dashboard') }}">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('admin.volunteers') }}">
+                <i class="fa-solid fa-users"></i>
+                Members
+            </a>
+
+            <a href="{{ url_for('admin.donations') }}">
+                <i class="fa-solid fa-heart"></i>
+                Donations
+            </a>
+
+            <a href="{{ url_for('admin.news') }}">
+                <i class="fa-solid fa-newspaper"></i>
+                News
+            </a>
+            
+            <a href="{{ url_for('admin.programs') }}">
+               📚 Programs
+            </a>
+
+            <a href="{{ url_for('admin.messages') }}">
+                <i class="fa-solid fa-envelope"></i>
+                Messages
+            </a>
+
+            <a href="{{ url_for('admin.settings') }}">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <a href="{{ url_for('admin.logout') }}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- ==============================
+         Main Content
+    =============================== -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    {% block page_title %}
+                    Dashboard
+                    {% endblock %}
+                </h2>
+
+                <p>
+                    Welcome back, Admin 👋
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-btn">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+
+                <button class="icon-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <button class="icon-btn">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash-message {{ category }}">
+
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+<script>
+
+function openTab(evt, tabName) {
+
+    // Hide all sections
+    document.querySelectorAll(".settings-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Remove active class from every button
+    document.querySelectorAll(".tab-btn").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    // Show selected section
+    document.getElementById(tabName).style.display = "block";
+
+    // Highlight clicked button
+    evt.currentTarget.classList.add("active");
+
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Hide all sections first
+    document.querySelectorAll(".settings-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show General tab by default
+    document.getElementById("general").style.display = "block";
+
+});
+
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,538 @@
+{% extends "base.html" %}
+
+{% block title %}Become a Member{% endblock %}
+
+{% block content %}
+
+<section class="membership-section">
+
+    <div class="membership-container">
+
+        <!-- =====================================
+             INTRODUCTION
+        ====================================== -->
+
+        <div class="membership-info">
+
+            <span class="membership-badge">
+                🤝 Join Our Community
+            </span>
+
+            <h1>
+                Become a
+                <span>Member</span>
+            </h1>
+
+            <p class="lead">
+
+                Join the
+                <strong>Resilient Truckers Foundation</strong>
+                and become part of a community working to support
+                truck drivers, promote road safety and strengthen
+                communities across Kenya.
+
+            </p>
+
+            <!-- IMPACT BOX -->
+
+            <div class="membership-impact">
+
+                <div class="membership-impact-item">
+
+                    <div class="membership-impact-icon">
+                        🚛
+                    </div>
+
+                    <div>
+
+                        <h4>Support Truck Drivers</h4>
+
+                        <p>
+                            Help improve the welfare and wellbeing
+                            of truck drivers and their families.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="membership-impact-item">
+
+                    <div class="membership-impact-icon">
+                        🛣️
+                    </div>
+
+                    <div>
+
+                        <h4>Promote Road Safety</h4>
+
+                        <p>
+                            Contribute to initiatives that promote
+                            safer roads and responsible driving.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="membership-impact-item">
+
+                    <div class="membership-impact-icon">
+                        🤝
+                    </div>
+
+                    <div>
+
+                        <h4>Build Stronger Communities</h4>
+
+                        <p>
+                            Connect with people who share the vision
+                            of creating positive change.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             MEMBERSHIP FORM
+        ====================================== -->
+
+        <div class="membership-card">
+
+            <div class="membership-card-header">
+
+                <h2>Membership Application</h2>
+
+                <p>
+                    Tell us a little about yourself and how you
+                    would like to be involved.
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 FLASH MESSAGES
+            ====================================== -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- =====================================
+                 FORM
+            ====================================== -->
+
+            <form
+                method="POST"
+                class="membership-form"
+                id="membershipForm"
+            >
+
+                <!-- =====================================
+                     PERSONAL INFORMATION
+                ====================================== -->
+
+                <div class="form-section-title">
+
+                    <span>1</span>
+
+                    <div>
+                        <h3>Personal Information</h3>
+
+                        <p>
+                            Basic information about you.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="full_name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="07XXXXXXXX"
+                        autocomplete="tel"
+                        required
+                    >
+
+                    <small>
+                        Enter a valid Kenyan phone number.
+                    </small>
+
+                </div>
+
+
+                <!-- County -->
+
+                <div class="form-group">
+
+                    <label for="county">
+                        County
+                    </label>
+
+                    <input
+                        type="text"
+                        id="county"
+                        name="county"
+                        placeholder="e.g. Nairobi"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Occupation -->
+
+                <div class="form-group">
+
+                    <label for="occupation">
+                        Occupation
+                    </label>
+
+                    <input
+                        type="text"
+                        id="occupation"
+                        name="occupation"
+                        placeholder="e.g. Truck Driver"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- =====================================
+                     DRIVER INFORMATION
+                ====================================== -->
+
+                <div class="form-section-title">
+
+                    <span>2</span>
+
+                    <div>
+
+                        <h3>Transport Information</h3>
+
+                        <p>
+                            Complete this section if applicable.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Driver Checkbox -->
+
+                <div class="driver-option">
+
+                    <label class="checkbox-label">
+
+                        <input
+                            type="checkbox"
+                            name="is_driver"
+                            id="is_driver"
+                        >
+
+                        <span>
+                            🚛 I am a truck driver
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Vehicle -->
+
+                <div class="form-group">
+
+                    <label for="vehicle_registration">
+                        Vehicle Registration Number
+                        <span>(Optional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vehicle_registration"
+                        name="vehicle_registration"
+                        placeholder="e.g. KDA 123A"
+                    >
+
+                </div>
+
+
+                <!-- Driving License -->
+
+                <div class="form-group">
+
+                    <label for="driving_license">
+                        Driving License Number
+                        <span>(Optional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="driving_license"
+                        name="driving_license"
+                        placeholder="Enter your license number"
+                    >
+
+                </div>
+
+
+                <!-- Company -->
+
+                <div class="form-group">
+
+                    <label for="company">
+                        Company / SACCO
+                        <span>(Optional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        placeholder="Company or SACCO name"
+                    >
+
+                </div>
+
+
+                <!-- Experience -->
+
+                <div class="form-group">
+
+                    <label for="experience">
+                        Years of Experience
+                        <span>(Optional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="experience"
+                        name="experience"
+                        placeholder="e.g. 5 years"
+                    >
+
+                </div>
+
+
+                <!-- =====================================
+                     MEMBERSHIP INTEREST
+                ====================================== -->
+
+                <div class="form-section-title">
+
+                    <span>3</span>
+
+                    <div>
+
+                        <h3>Your Interest</h3>
+
+                        <p>
+                            Tell us what brings you to RTF.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Joining Reason -->
+
+                <div class="form-group">
+
+                    <label for="joining_reason">
+
+                        What best describes your interest
+                        in joining the Resilient Truckers Foundation?
+
+                    </label>
+
+                    <select
+                        name="joining_reason"
+                        id="joining_reason"
+                        required
+                    >
+
+                        <option value="">
+                            -- Select an option --
+                        </option>
+
+                        <option value="Truck Driver">
+                            🚛 I am a truck driver
+                        </option>
+
+                        <option value="Support Drivers">
+                            👨‍👩‍👧 I want to support truck drivers and their families
+                        </option>
+
+                        <option value="Volunteer">
+                            ❤️ I want to volunteer in community programs
+                        </option>
+
+                        <option value="Road Safety">
+                            🛣️ I want to promote road safety
+                        </option>
+
+                        <option value="Transport Company">
+                            🤝 I represent a transport company or SACCO
+                        </option>
+
+                        <option value="Donate">
+                            💰 I would like to support the foundation through donations
+                        </option>
+
+                        <option value="Training">
+                            📚 I want to participate in training and workshops
+                        </option>
+
+                        <option value="Foundation Mission">
+                            🌍 I believe in the foundation's mission
+                        </option>
+
+                        <option value="Other">
+                            ✍️ Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Additional Information -->
+
+                <div class="form-group">
+
+                    <label for="reason">
+
+                        Tell Us More
+                        <span>(Optional)</span>
+
+                    </label>
+
+                    <textarea
+                        name="reason"
+                        id="reason"
+                        rows="5"
+                        placeholder="Share any additional information you'd like us to know..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- =====================================
+                     SUBMIT
+                ====================================== -->
+
+                <button
+                    type="submit"
+                    class="membership-btn"
+                    id="membershipButton"
+                >
+
+                    <span class="btn-text">
+                        Submit Application
+                    </span>
+
+                    <span
+                        class="btn-loading"
+                        style="display:none;"
+                    >
+                        Submitting...
+                    </span>
+
+                </button>
+
+
+                <p class="membership-note">
+
+                    Your application will be reviewed by the
+                    Resilient Truckers Foundation team before
+                    your membership is approved.
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

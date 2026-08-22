@@ -1,0 +1,556 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Donation Details{% endblock %}
+
+{% block content %}
+
+<div class="admin-page">
+
+    <!-- =====================================
+         PAGE HEADER
+    ====================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Donation Details</h2>
+
+            <p>
+                Review and manage this donation record.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('admin.donations') }}"
+            class="btn btn-secondary"
+        >
+            ← Back to Donations
+        </a>
+
+    </div>
+
+
+    <!-- =====================================
+         STATUS BANNER
+    ====================================== -->
+
+    <div
+        style="
+        margin:25px 0;
+        padding:18px 22px;
+        border-radius:12px;
+        border:1px solid #e2e8f0;
+        background:
+        {% if donation.status == 'Received' %}
+            #f0fdf4;
+        {% elif donation.status == 'Failed' %}
+            #fef2f2;
+        {% else %}
+            #fffbeb;
+        {% endif %}
+        "
+    >
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:15px;
+            flex-wrap:wrap;
+        ">
+
+            <div>
+
+                <strong>Donation Status</strong>
+
+                <div style="margin-top:6px;">
+
+                    {% if donation.status == "Received" %}
+
+                        <span style="
+                            color:#16a34a;
+                            font-weight:700;
+                        ">
+                            ● Received
+                        </span>
+
+                    {% elif donation.status == "Failed" %}
+
+                        <span style="
+                            color:#dc2626;
+                            font-weight:700;
+                        ">
+                            ● Failed
+                        </span>
+
+                    {% else %}
+
+                        <span style="
+                            color:#d97706;
+                            font-weight:700;
+                        ">
+                            ● Pending Verification
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div style="
+                font-size:0.9rem;
+                color:#64748b;
+            ">
+
+                Donation #{{ donation.id }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         DONATION SUMMARY
+    ====================================== -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>Donation Summary</h3>
+
+                <p>
+                    Key information about this donation.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            padding:25px;
+            display:grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+            gap:25px;
+        ">
+
+
+            <!-- Amount -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Donation Amount
+                </span>
+
+                <div style="
+                    margin-top:6px;
+                    font-size:1.7rem;
+                    font-weight:700;
+                ">
+
+                    KSh {{ "{:,.2f}".format(donation.amount) }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Payment Method -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Payment Method
+                </span>
+
+                <div style="
+                    margin-top:6px;
+                    font-weight:600;
+                ">
+
+                    {{ donation.payment_method or "M-Pesa" }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Submitted
+                </span>
+
+                <div style="
+                    margin-top:6px;
+                    font-weight:600;
+                ">
+
+                    {{ donation.created_at.strftime(
+                        "%d %b %Y, %H:%M"
+                    ) }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Donation ID -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Donation ID
+                </span>
+
+                <div style="
+                    margin-top:6px;
+                    font-weight:600;
+                ">
+
+                    #{{ donation.id }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- =====================================
+         DONOR INFORMATION
+    ====================================== -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>Donor Information</h3>
+
+                <p>
+                    Contact information provided by the donor.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            padding:25px;
+            display:grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap:25px;
+        ">
+
+
+            <!-- Name -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Full Name
+                </span>
+
+                <div style="
+                    margin-top:6px;
+                    font-weight:600;
+                ">
+
+                    {{ donation.full_name }}
+
+                </div>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Email Address
+                </span>
+
+                <div style="margin-top:6px;">
+
+                    <a href="mailto:{{ donation.email }}">
+
+                        {{ donation.email }}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Phone -->
+
+            <div>
+
+                <span style="
+                    color:#64748b;
+                    font-size:0.9rem;
+                ">
+                    Phone Number
+                </span>
+
+                <div style="margin-top:6px;">
+
+                    <a href="tel:{{ donation.phone }}">
+
+                        {{ donation.phone }}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- =====================================
+         DONOR MESSAGE
+    ====================================== -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>Donor Message</h3>
+
+                <p>
+                    Message included with the donation.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            margin:20px;
+            padding:20px;
+            background:#f8fafc;
+            border:1px solid #e2e8f0;
+            border-radius:10px;
+            line-height:1.7;
+        ">
+
+            {% if donation.message %}
+
+                {{ donation.message }}
+
+            {% else %}
+
+                <span style="color:#64748b;">
+                    No message was provided.
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- =====================================
+         MANUAL VERIFICATION
+    ====================================== -->
+
+    {% if donation.status != "Received" %}
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>Manual Verification</h3>
+
+                <p>
+                    Confirm that the donation has actually
+                    been received before approving this record.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            padding:20px;
+            margin:0 20px 20px 20px;
+            background:#fffbeb;
+            border:1px solid #fde68a;
+            border-radius:10px;
+        ">
+
+            <strong>Verification required</strong>
+
+            <p style="
+                margin-top:8px;
+                color:#92400e;
+            ">
+
+                This donation was submitted through the website.
+                Verify the payment using the foundation's
+                designated payment channel before marking it
+                as received.
+
+            </p>
+
+        </div>
+
+
+        <div style="padding:0 20px 20px 20px;">
+
+            <a
+                href="{{ url_for(
+                    'admin.receive_donation',
+                    id=donation.id
+                ) }}"
+                class="btn btn-success"
+                onclick="
+                    return confirm(
+                        'Have you verified that this donation was actually received?'
+                    );
+                "
+            >
+                ✓ Mark as Received
+            </a>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    {% endif %}
+
+
+    <!-- =====================================
+         ACTIONS
+    ====================================== -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h3>Actions</h3>
+
+                <p>
+                    Manage this donation record.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            padding:20px;
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        ">
+
+
+            {% if donation.status == "Received" %}
+
+                <span style="
+                    display:inline-flex;
+                    align-items:center;
+                    padding:9px 14px;
+                    border-radius:6px;
+                    background:#dcfce7;
+                    color:#166534;
+                    font-weight:600;
+                ">
+                    ✓ Donation Received
+                </span>
+
+            {% endif %}
+
+
+            <a
+                href="{{ url_for('admin.delete_donation',
+                    id=donation.id) }}"
+                class="btn btn-danger"
+                onclick="
+                    return confirm(
+                        'Are you sure you want to permanently delete this donation?'
+                    );
+                "
+            >
+                🗑 Delete Donation
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.donations') }}"
+                class="btn btn-secondary"
+            >
+                ← Back to Donations
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
