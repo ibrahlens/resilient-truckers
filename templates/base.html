@@ -41,43 +41,49 @@
     <!-- =====================================
          Navigation
     ====================================== -->
-
     <nav class="navbar">
 
-        
-        <div class="logo">
+    <div class="logo">
 
-    {% if settings.logo %}
-
+        {% if settings.logo %}
         <img
             src="{{ url_for('static', filename='uploads/' + settings.logo) }}"
-            alt="Logo"
-            style="height:60px; vertical-align:middle;">
+            alt="Resilient Truckers Foundation Logo">
+        {% endif %}
 
-    {% endif %}
+        <h2>
+            {{ settings.foundation_name or "Resilient Truckers Foundation" }}
+        </h2>
 
-    <h2>
-        {{ settings.foundation_name or "Resilient Truckers Foundation" }}
-    </h2>
+    </div>
 
-</div>
+    <!-- Mobile menu button -->
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        type="button">
 
-        <ul class="nav-links">
+        <i class="fa-solid fa-bars"></i>
 
-            <li><a href="/">Home</a></li>
+    </button>
 
-            <li><a href="/about">About</a></li>
+    <ul class="nav-links" id="navLinks">
 
-            <li><a href="/programs">Programs</a></li>
+        <li><a href="/">Home</a></li>
 
-            <li><a href="/news">News</a></li>
+        <li><a href="/about">About</a></li>
 
-            <li><a href="/contact">Contact</a></li>
+        <li><a href="/programs">Programs</a></li>
 
-        </ul>
+        <li><a href="/news">News</a></li>
 
-    
-        </nav>
+        <li><a href="/contact">Contact</a></li>
+
+    </ul>
+
+</nav>
 <!-- =====================================
      FLASH MESSAGES
 ===================================== -->

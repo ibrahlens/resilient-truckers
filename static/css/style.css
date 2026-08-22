@@ -2318,3 +2318,607 @@ summary{
         padding: 14px 16px;
     }
 }
+/* =====================================
+   MOBILE RESPONSIVE FIX
+===================================== */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+}
+
+/* Force major sections to use the available screen */
+.navbar,
+.hero,
+main,
+section,
+footer {
+    max-width: 100%;
+}
+
+/* =====================================
+   MOBILE NAVIGATION
+===================================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        width: 100%;
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+
+    .logo h2 {
+        font-size: 1.25rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        gap: 18px;
+        margin-top: 15px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    /* Hero */
+    .hero {
+        width: 100%;
+        min-height: 80vh;
+        padding: 40px 20px;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    /* General containers */
+    .container {
+        width: calc(100% - 30px);
+        max-width: 100%;
+    }
+
+    /* Prevent grids from becoming wider than phone */
+    .impact-grid,
+    .program-grid,
+    .news-grid,
+    .testimonial-grid,
+    .why-grid,
+    .involve-grid,
+    .contact-grid,
+    .about-grid,
+    .mission-grid,
+    .services-grid {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Typography */
+    h1 {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    h2 {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    p {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Buttons */
+    .btn {
+        max-width: 100%;
+    }
+
+    /* Footer */
+    footer {
+        width: 100%;
+        padding: 45px 20px;
+    }
+}
+
+
+/* =====================================
+   SMALL PHONES
+===================================== */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 14px 15px;
+    }
+
+    .logo h2 {
+        font-size: 1.1rem;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        min-height: 75vh;
+        padding: 35px 15px;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+    }
+}
+/* =====================================
+   FINAL RESPONSIVE NAVIGATION FIX
+===================================== */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    max-width: 100%;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.logo img {
+    width: auto;
+    height: 50px;
+    max-width: 70px;
+    object-fit: contain;
+}
+
+.logo h2 {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-links {
+    min-width: 0;
+}
+
+
+/* =====================================
+   MOBILE NAVIGATION
+===================================== */
+
+.mobile-menu-btn {
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+
+    .navbar {
+        position: sticky;
+        top: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
+        padding: 12px 16px;
+
+        gap: 10px;
+    }
+
+
+    .logo {
+        flex: 1;
+        min-width: 0;
+    }
+
+
+    .logo img {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+    }
+
+
+    .logo h2 {
+        max-width: 180px;
+
+        font-size: 1rem;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /* Hamburger */
+
+    .mobile-menu-btn {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 44px;
+        height: 44px;
+
+        flex-shrink: 0;
+
+        border: none;
+        border-radius: 10px;
+
+        background: rgba(255,255,255,.12);
+
+        color: #fff;
+
+        font-size: 1.25rem;
+
+        cursor: pointer;
+    }
+
+
+    /* Navigation */
+
+    .nav-links {
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        margin: 0;
+        padding: 10px 0;
+
+        background: var(--color-navbar);
+
+        box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    }
+
+
+    .nav-links.active {
+        display: flex;
+    }
+
+
+    .nav-links li {
+        width: 100%;
+    }
+
+
+    .nav-links a {
+        display: block;
+
+        width: 100%;
+
+        padding: 14px 20px;
+
+        font-size: .95rem;
+    }
+
+
+    .nav-links a:hover {
+        background: rgba(255,255,255,.1);
+    }
+}
+
+
+/* =====================================
+   SMALL PHONES
+===================================== */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 10px 14px;
+    }
+
+
+    .logo img {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    .logo h2 {
+        max-width: 150px;
+        font-size: .9rem;
+    }
+}
+/* =====================================
+   MOBILE NAVIGATION
+===================================== */
+
+.menu-toggle{
+    display: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 8px;
+}
+
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
+@media (max-width: 768px){
+
+    /* Prevent horizontal overflow */
+    html,
+    body{
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar{
+        width: 100%;
+        padding: 12px 18px;
+        min-height: 70px;
+        position: sticky;
+    }
+
+    /* Logo area */
+    .logo{
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        max-width: calc(100% - 60px);
+    }
+
+    .logo img{
+        width: 42px;
+        height: 42px !important;
+        object-fit: contain;
+        flex-shrink: 0;
+        margin-right: 8px;
+    }
+
+    .logo h2{
+        font-size: .95rem;
+        line-height: 1.2;
+        white-space: normal;
+        overflow: hidden;
+    }
+
+    /* Hamburger */
+    .menu-toggle{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Navigation menu */
+    .nav-links{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 0;
+
+        background: var(--color-navbar);
+
+        padding: 10px 0;
+
+        box-shadow: 0 10px 25px rgba(0,0,0,.2);
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+
+        transition:
+            opacity .25s ease,
+            transform .25s ease,
+            visibility .25s ease;
+    }
+
+    /* Open menu */
+    .nav-links.active{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-links li{
+        width: 100%;
+    }
+
+    .nav-links a{
+        display: block;
+        width: 100%;
+        padding: 15px 22px;
+
+        font-size: 1rem;
+
+        border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .nav-links li:last-child a{
+        border-bottom: none;
+    }
+
+    /* Hero */
+    .hero{
+        min-height: 80vh;
+        padding: 30px 18px;
+    }
+
+    .hero-content{
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero h1{
+        font-size: clamp(2rem, 9vw, 2.8rem);
+    }
+
+    .hero p{
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    /* Buttons */
+    .hero-buttons{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-buttons .btn{
+        width: 100%;
+    }
+
+    /* General containers */
+    .container{
+        width: calc(100% - 30px);
+        max-width: 100%;
+    }
+
+    /* Section headings */
+    .about-preview h2,
+    .impact h2,
+    .programs h2,
+    .cta h2,
+    .why-section h2,
+    .about-cta h2{
+        font-size: 2rem;
+    }
+
+    /* Cards */
+    .impact-grid,
+    .program-grid,
+    .news-grid,
+    .testimonial-grid,
+    .why-grid,
+    .involve-grid,
+    .services-grid,
+    .mission-grid{
+        grid-template-columns: 1fr;
+    }
+
+    /* Prevent cards from becoming wider than phone */
+    .impact-card,
+    .program-card,
+    .news-card,
+    .testimonial-card,
+    .why-card,
+    .involve-card,
+    .contact-card,
+    .mission-card,
+    .service-card{
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* About */
+    .about-story,
+    .mission-section,
+    .services-section,
+    .impact-section{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Contact */
+    .contact-section{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .contact-info,
+    .contact-form-card{
+        padding: 25px 18px;
+    }
+
+}
