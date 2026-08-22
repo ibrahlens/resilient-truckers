@@ -16,20 +16,19 @@ class Config:
         "SECRET_KEY",
         "development-only-change-me"
     )
-
     # =====================================
-    # Database
-    # =====================================
+# Database
+# =====================================
 
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL",
-        "sqlite:///" + os.path.join(
-            BASE_DIR,
-            "instance",
-            "foundation.db"
-        )
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    SQLALCHEMY_DATABASE_URI = DATABASE_URL
+else:
+    SQLALCHEMY_DATABASE_URI = (
+        "sqlite:///" +
+        os.path.join(BASE_DIR, "instance", "foundation.db")
     )
-
     # =====================================
     # SQLAlchemy
     # =====================================
