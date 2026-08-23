@@ -16,9 +16,10 @@ class Config:
         "SECRET_KEY",
         "development-only-change-me"
     )
-# =====================================
-# Database
-# =====================================
+
+    # =====================================
+    # Database
+    # =====================================
 
     DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -30,11 +31,16 @@ class Config:
             1
         )
     else:
-        # Local development
+        # Local development - SQLite
         SQLALCHEMY_DATABASE_URI = (
-            "sqlite:///" +
-            os.path.join(BASE_DIR, "instance", "foundation.db")
+            "sqlite:///"
+            + os.path.join(
+                BASE_DIR,
+                "instance",
+                "foundation.db"
+            )
         )
+
     # =====================================
     # SQLAlchemy
     # =====================================
