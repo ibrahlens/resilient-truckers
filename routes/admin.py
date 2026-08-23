@@ -29,6 +29,9 @@ from models import (
     SiteSettings,
     Program
 )
+
+from datetime import datetime, timezone
+
 # =====================================
 # Admin Blueprint
 # =====================================
@@ -490,27 +493,46 @@ def donations():
     # Current Month
     # =====================================
 
-    now = datetime.now()
+now = datetime.now(timezone.utc)
 
-    monthly_total = (
-        db.session.query(
-            func.sum(Donation.amount)
-        )
-        .filter(
-            Donation.status == "Received",
-            func.strftime(
-                "%m",
-                Donation.created_at
-            ) == now.strftime("%m"),
-            func.strftime(
-                "%Y",
-                Donation.created_at
-            ) == now.strftime("%Y")
-        )
-        .scalar()
-        or 0
+month_start = now.replace(
+    day=1,
+    hour=0,
+    minute=0,
+    second=0,
+    microsecond=0
+)
+
+if now.month == 12:
+    next_month = now.replace(
+        year=now.year + 1,
+        month=1,
+        day=1,
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0
+    )
+else:
+    next_month = now.replace(
+        month=now.month + 1,
+        day=1,
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0
     )
 
+monthly_total = Donation.query.filter(
+    Donation.status == "Received",
+    Donation.created_at >= month_start,
+    Donation.created_at < next_month
+).with_entities(
+    db.func.coalesce(
+        db.func.sum(Donation.amount),
+        0
+    )
+).scalar()
     # =====================================
     # Monthly Trend
     # =====================================
