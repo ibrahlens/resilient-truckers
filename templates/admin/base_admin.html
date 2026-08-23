@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
@@ -12,102 +11,238 @@
         {% block title %}RTF Admin{% endblock %}
     </title>
 
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Admin CSS -->
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/admin.css') }}">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    {% block extra_css %}{% endblock %}
 
 </head>
 
 <body>
 
-    <!-- ==============================
-         Sidebar
-    =============================== -->
+<!-- =====================================================
+     MOBILE OVERLAY
+===================================================== -->
 
-    <aside class="sidebar">
+<div class="mobile-overlay"
+     id="mobileOverlay"></div>
 
-        <div class="brand">
 
-            {% if settings.logo %}
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
-                <img
-                    src="{{ url_for('static',
-                    filename='uploads/' + settings.logo) }}"
-                    class="sidebar-logo">
-
-            {% endif %}
-
-            <h2>
-                {{ settings.short_name or "RTF" }}
-            </h2>
-
-        </div>
-
-        <nav class="sidebar-menu">
-
-            <a href="{{ url_for('admin.dashboard') }}">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
-
-            <a href="{{ url_for('admin.volunteers') }}">
-                <i class="fa-solid fa-users"></i>
-                Members
-            </a>
-
-            <a href="{{ url_for('admin.donations') }}">
-                <i class="fa-solid fa-heart"></i>
-                Donations
-            </a>
-
-            <a href="{{ url_for('admin.news') }}">
-                <i class="fa-solid fa-newspaper"></i>
-                News
-            </a>
-            
-            <a href="{{ url_for('admin.programs') }}">
-               📚 Programs
-            </a>
-
-            <a href="{{ url_for('admin.messages') }}">
-                <i class="fa-solid fa-envelope"></i>
-                Messages
-            </a>
-
-            <a href="{{ url_for('admin.settings') }}">
-                <i class="fa-solid fa-gear"></i>
-                Settings
-            </a>
-
-        </nav>
-
-        <div class="sidebar-footer">
-
-            <a href="{{ url_for('admin.logout') }}">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </a>
-
-        </div>
-
-    </aside>
+<aside class="sidebar">
 
     <!-- ==============================
-         Main Content
+         SIDEBAR BRAND
     =============================== -->
 
-    <main class="main-content">
+    <div class="brand">
 
-        <header class="topbar">
+        {% if settings and settings.logo %}
 
-            <div>
+            <img
+                src="{{ url_for('static', filename='uploads/' ~ settings.logo) }}"
+                alt="{{ settings.foundation_name or 'RTF' }}"
+                class="sidebar-logo"
+            >
+
+        {% else %}
+
+            <div class="sidebar-logo-placeholder">
+                <i class="fa-solid fa-truck"></i>
+            </div>
+
+        {% endif %}
+
+        <h2>
+            {{ settings.short_name or "RTF" }}
+        </h2>
+
+    </div>
+
+
+    <!-- ==============================
+         SIDEBAR NAVIGATION
+    =============================== -->
+
+    <nav class="sidebar-menu"
+         aria-label="Admin navigation">
+
+        <!-- Dashboard -->
+
+        <a
+            href="{{ url_for('admin.dashboard') }}"
+            class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}"
+            title="Dashboard"
+        >
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <!-- Members -->
+
+        <a
+            href="{{ url_for('admin.volunteers') }}"
+            class="{% if request.endpoint in ['admin.volunteers', 'admin.view_member'] %}active{% endif %}"
+            title="Members"
+        >
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Members</span>
+
+        </a>
+
+
+        <!-- Donations -->
+
+        <a
+            href="{{ url_for('admin.donations') }}"
+            class="{% if request.endpoint in ['admin.donations', 'admin.view_donation'] %}active{% endif %}"
+            title="Donations"
+        >
+
+            <i class="fa-solid fa-hand-holding-heart"></i>
+
+            <span>Donations</span>
+
+        </a>
+
+
+        <!-- News -->
+
+        <a
+            href="{{ url_for('admin.news') }}"
+            class="{% if request.endpoint in ['admin.news', 'admin.add_news', 'admin.edit_news'] %}active{% endif %}"
+            title="News"
+        >
+
+            <i class="fa-solid fa-newspaper"></i>
+
+            <span>News</span>
+
+        </a>
+
+
+        <!-- Programs -->
+
+        <a
+            href="{{ url_for('admin.programs') }}"
+            class="{% if request.endpoint in ['admin.programs', 'admin.add_program', 'admin.edit_program'] %}active{% endif %}"
+            title="Programs"
+        >
+
+            <i class="fa-solid fa-layer-group"></i>
+
+            <span>Programs</span>
+
+        </a>
+
+
+        <!-- Messages -->
+
+        <a
+            href="{{ url_for('admin.messages') }}"
+            class="{% if request.endpoint in ['admin.messages', 'admin.view_message'] %}active{% endif %}"
+            title="Messages"
+        >
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <span>Messages</span>
+
+        </a>
+
+
+        <!-- Settings -->
+
+        <a
+            href="{{ url_for('admin.settings') }}"
+            class="{% if request.endpoint == 'admin.settings' %}active{% endif %}"
+            title="Settings"
+        >
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- ==============================
+         SIDEBAR FOOTER
+    =============================== -->
+
+    <div class="sidebar-footer">
+
+        <a
+            href="{{ url_for('admin.logout') }}"
+            title="Logout"
+        >
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <button type="button"
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    aria-label="Open navigation">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div class="topbar-title">
 
                 <h2>
-                    {% block page_title %}
-                    Dashboard
-                    {% endblock %}
+                    {% block page_title %}Dashboard{% endblock %}
                 </h2>
 
                 <p>
@@ -116,89 +251,196 @@
 
             </div>
 
-            <div class="topbar-actions">
+        </div>
 
-                <button class="icon-btn">
-                    <i class="fa-solid fa-bell"></i>
-                </button>
 
-                <button class="icon-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+        <!-- TOPBAR ACTIONS -->
 
-                <button class="icon-btn">
-                    <i class="fa-solid fa-user"></i>
-                </button>
+        <div class="topbar-actions">
+
+            <button type="button"
+                    class="icon-btn"
+                    aria-label="Notifications">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </button>
+
+
+            <button type="button"
+                    class="icon-btn"
+                    aria-label="Search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+
+            <button type="button"
+                    class="icon-btn"
+                    aria-label="Profile">
+
+                <i class="fa-solid fa-user"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
 
             </div>
 
-        </header>
+        {% endif %}
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% endwith %}
 
-            {% if messages %}
 
-                <div class="flash-container">
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
 
-                    {% for category, message in messages %}
-
-                        <div class="flash-message {{ category }}">
-
-                            {{ message }}
-
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-
-            {% endif %}
-
-        {% endwith %}
+    <div class="admin-content">
 
         {% block content %}
+
         {% endblock %}
 
-    </main>
+    </div>
+
+
+</main>
+
+
+<!-- =====================================================
+     MOBILE MENU SCRIPT
+===================================================== -->
 
 <script>
 
-function openTab(evt, tabName) {
-
-    // Hide all sections
-    document.querySelectorAll(".settings-section").forEach(section => {
-        section.style.display = "none";
-    });
-
-    // Remove active class from every button
-    document.querySelectorAll(".tab-btn").forEach(button => {
-        button.classList.remove("active");
-    });
-
-    // Show selected section
-    document.getElementById(tabName).style.display = "block";
-
-    // Highlight clicked button
-    evt.currentTarget.classList.add("active");
-
-}
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Hide all sections first
-    document.querySelectorAll(".settings-section").forEach(section => {
-        section.style.display = "none";
+    const menuButton =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.getElementById("adminSidebar");
+
+    const overlay =
+        document.getElementById("mobileOverlay");
+
+
+    function openSidebar() {
+
+        sidebar.classList.add("mobile-open");
+
+        overlay.classList.add("active");
+
+        document.body.classList.add("menu-open");
+
+    }
+
+
+    function closeSidebar() {
+
+        sidebar.classList.remove("mobile-open");
+
+        overlay.classList.remove("active");
+
+        document.body.classList.remove("menu-open");
+
+    }
+
+
+    if (menuButton) {
+
+        menuButton.addEventListener(
+            "click",
+            openSidebar
+        );
+
+    }
+
+
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    }
+
+
+    /*
+       Close mobile sidebar after
+       selecting a navigation item.
+    */
+
+    document.querySelectorAll(
+        ".sidebar-menu a"
+    ).forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                if (window.innerWidth <= 768) {
+
+                    closeSidebar();
+
+                }
+
+            }
+        );
+
     });
 
-    // Show General tab by default
-    document.getElementById("general").style.display = "block";
+
+    /*
+       Restore normal state when
+       returning to desktop width.
+    */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 768) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
 
 });
 
 </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% block extra_js %}{% endblock %}
+
 </body>
-
-
 </html>
