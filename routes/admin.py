@@ -743,6 +743,10 @@ def settings():
                 "alternative_phone"
             )
 
+            settings.whatsapp = request.form.get(
+                "whatsapp"
+            )
+
             settings.website = request.form.get(
                 "website"
             )

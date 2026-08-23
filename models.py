@@ -357,6 +357,33 @@ class SiteSettings(db.Model):
         db.String(250)
     )
 
+    whatsapp_link = db.Column(
+        db.String(255)
+    )
+
+    # M-Pesa
+    mpesa_paybill = db.Column(
+        db.String(50)
+    )
+
+    mpesa_account = db.Column(
+        db.String(100)
+    )
+
+    # SEO
+    meta_title = db.Column(
+        db.String(255)
+    )
+
+    meta_description = db.Column(
+        db.Text
+    )
+
+    # Footer
+    copyright = db.Column(
+        db.String(255)
+    )
+
     # Donation Settings
     currency = db.Column(
         db.String(10),

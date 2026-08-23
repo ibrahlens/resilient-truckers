@@ -38,17 +38,20 @@
 
 <!-- =====================================================
      MOBILE OVERLAY
+     (class matches .sidebar-overlay in admin.css)
 ===================================================== -->
 
-<div class="mobile-overlay"
+<div class="sidebar-overlay"
      id="mobileOverlay"></div>
 
 
 <!-- =====================================================
      SIDEBAR
+     (id added so mobile menu JS can find it)
 ===================================================== -->
 
-<aside class="sidebar">
+<aside class="sidebar"
+       id="adminSidebar">
 
     <!-- ==============================
          SIDEBAR BRAND
@@ -354,9 +357,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         sidebar.classList.add("mobile-open");
 
-        overlay.classList.add("active");
+        overlay.classList.add("mobile-open");
 
-        document.body.classList.add("menu-open");
+        document.body.classList.add("sidebar-open");
 
     }
 
@@ -365,9 +368,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         sidebar.classList.remove("mobile-open");
 
-        overlay.classList.remove("active");
+        overlay.classList.remove("mobile-open");
 
-        document.body.classList.remove("menu-open");
+        document.body.classList.remove("sidebar-open");
 
     }
 
