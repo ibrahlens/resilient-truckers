@@ -30,6 +30,7 @@ from models import (
     Program
 )
 
+from sqlalchemy import func, extract
 from datetime import datetime, timezone
 
 # =====================================
@@ -395,14 +396,9 @@ def delete_member(id):
         url_for("admin.volunteers")
     )
 
-
 # =====================================
 # Donations
 # =====================================
-
-from sqlalchemy import func, extract
-from datetime import datetime
-
 
 @admin_bp.route("/admin/donations")
 @login_required
@@ -493,29 +489,9 @@ def donations():
     # Current Month
     # =====================================
 
-now = datetime.now(timezone.utc)
+    now = datetime.now(timezone.utc)
 
-month_start = now.replace(
-    day=1,
-    hour=0,
-    minute=0,
-    second=0,
-    microsecond=0
-)
-
-if now.month == 12:
-    next_month = now.replace(
-        year=now.year + 1,
-        month=1,
-        day=1,
-        hour=0,
-        minute=0,
-        second=0,
-        microsecond=0
-    )
-else:
-    next_month = now.replace(
-        month=now.month + 1,
+    month_start = now.replace(
         day=1,
         hour=0,
         minute=0,
@@ -523,16 +499,46 @@ else:
         microsecond=0
     )
 
-monthly_total = Donation.query.filter(
-    Donation.status == "Received",
-    Donation.created_at >= month_start,
-    Donation.created_at < next_month
-).with_entities(
-    db.func.coalesce(
-        db.func.sum(Donation.amount),
-        0
+    if now.month == 12:
+
+        next_month = now.replace(
+            year=now.year + 1,
+            month=1,
+            day=1,
+            hour=0,
+            minute=0,
+            second=0,
+            microsecond=0
+        )
+
+    else:
+
+        next_month = now.replace(
+            month=now.month + 1,
+            day=1,
+            hour=0,
+            minute=0,
+            second=0,
+            microsecond=0
+        )
+
+    monthly_total = (
+        Donation.query
+        .filter(
+            Donation.status == "Received",
+            Donation.created_at >= month_start,
+            Donation.created_at < next_month
+        )
+        .with_entities(
+            func.coalesce(
+                func.sum(Donation.amount),
+                0
+            )
+        )
+        .scalar()
+        or 0
     )
-).scalar()
+
     # =====================================
     # Monthly Trend
     # =====================================
