@@ -8,23 +8,110 @@
 
 <hr>
 
-<p><strong>Full Name:</strong> {{ member.full_name }}</p>
+<!-- =====================================
+     RTF REGISTRATION NUMBER
+     ===================================== -->
 
-<p><strong>Email:</strong> {{ member.email }}</p>
+{% if member.member_id %}
 
-<p><strong>Phone:</strong> {{ member.phone }}</p>
+<div style="
+    background:#e8f5e9;
+    border-left:5px solid #2e7d32;
+    padding:18px;
+    border-radius:8px;
+    margin-bottom:25px;
+">
 
-<p><strong>County:</strong> {{ member.county }}</p>
+    <p style="
+        margin:0 0 6px 0;
+        font-size:14px;
+        color:#555;
+    ">
+        <strong>RTFS Driver Registration Number</strong>
+    </p>
 
-<p><strong>Occupation:</strong> {{ member.occupation }}</p>
+    <div style="
+        font-size:28px;
+        font-weight:bold;
+        color:#1b5e20;
+        letter-spacing:1px;
+    ">
+        {{ member.member_id }}
+    </div>
+
+    {% if member.status == "Approved" %}
+        <p style="
+            margin:8px 0 0 0;
+            color:#2e7d32;
+        ">
+            ✓ Official registration number assigned
+        </p>
+    {% endif %}
+
+</div>
+
+{% else %}
+
+<div style="
+    background:#fff8e1;
+    border-left:5px solid #f9a825;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:25px;
+">
+
+    <strong>Registration Number:</strong>
+
+    <span style="color:#777;">
+        Not assigned yet
+    </span>
+
+</div>
+
+{% endif %}
+
+
+<!-- =====================================
+     PERSONAL INFORMATION
+     ===================================== -->
+
+<p>
+    <strong>Full Name:</strong>
+    {{ member.full_name }}
+</p>
+
+<p>
+    <strong>Email:</strong>
+    {{ member.email }}
+</p>
+
+<p>
+    <strong>Phone:</strong>
+    {{ member.phone }}
+</p>
+
+<p>
+    <strong>County:</strong>
+    {{ member.county }}
+</p>
+
+<p>
+    <strong>Occupation:</strong>
+    {{ member.occupation }}
+</p>
+
+
+<!-- =====================================
+     DRIVER INFORMATION
+     ===================================== -->
 
 <p>
     <strong>Truck Driver:</strong>
 
     {% if member.is_driver %}
-        Yes
+        🚛 Yes
     {% else %}
-        No
+        👤 No
     {% endif %}
 </p>
 
@@ -48,21 +135,40 @@
     {{ member.experience or "N/A" }}
 </p>
 
+
+<!-- =====================================
+     PRIMARY INTEREST
+     ===================================== -->
+
 <p>
     <strong>Primary Interest</strong>
 </p>
 
-<div style="background:#eef7ff;padding:15px;border-radius:8px;margin-bottom:20px;">
+<div style="
+    background:#eef7ff;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+">
 
     {{ member.joining_reason }}
 
 </div>
 
+
+<!-- =====================================
+     ADDITIONAL INFORMATION
+     ===================================== -->
+
 <p>
     <strong>Additional Information</strong>
 </p>
 
-<div style="background:#f5f5f5;padding:15px;border-radius:8px;">
+<div style="
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:8px;
+">
 
     {% if member.reason %}
 
@@ -76,44 +182,81 @@
 
 </div>
 
+
 <br>
+
+
+<!-- =====================================
+     STATUS
+     ===================================== -->
 
 <p>
     <strong>Status:</strong>
 
     {% if member.status == "Approved" %}
-        <span style="color:green;font-weight:bold;">
-            {{ member.status }}
+
+        <span style="
+            color:green;
+            font-weight:bold;
+        ">
+            🟢 Approved
         </span>
 
     {% elif member.status == "Rejected" %}
-        <span style="color:red;font-weight:bold;">
-            {{ member.status }}
+
+        <span style="
+            color:red;
+            font-weight:bold;
+        ">
+            🔴 Rejected
         </span>
 
     {% else %}
-        <span style="color:orange;font-weight:bold;">
-            {{ member.status }}
+
+        <span style="
+            color:orange;
+            font-weight:bold;
+        ">
+            🟡 Pending
         </span>
+
     {% endif %}
+
 </p>
 
+
 <hr>
+
+
+<!-- =====================================
+     ACTIONS
+     ===================================== -->
 
 <a href="{{ url_for('admin.volunteers') }}"
    class="btn btn-secondary">
     ← Back to Members
 </a>
 
+
+{% if member.status != "Approved" %}
+
 <a href="{{ url_for('admin.approve_member', id=member.id) }}"
    class="btn btn-primary">
     Approve
 </a>
 
+{% endif %}
+
+
+{% if member.status != "Rejected" %}
+
 <a href="{{ url_for('admin.reject_member', id=member.id) }}"
    class="btn btn-primary">
     Reject
 </a>
+
+{% endif %}
+
 
 <a href="{{ url_for('admin.delete_member', id=member.id) }}"
    class="btn btn-primary"

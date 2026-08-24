@@ -195,11 +195,30 @@ class Member(db.Model):
         nullable=True
     )
 
+    # =====================================
+    # Membership Status
+    # =====================================
+
     status = db.Column(
         db.String(20),
         default="Pending",
         nullable=False
     )
+
+    # =====================================
+    # Official RTF Registration Number
+    # =====================================
+
+    member_id = db.Column(
+        db.String(20),
+        unique=True,
+        nullable=True,
+        index=True
+    )
+
+    # =====================================
+    # Date Joined
+    # =====================================
 
     created_at = db.Column(
         db.DateTime,
@@ -209,7 +228,9 @@ class Member(db.Model):
 
     def __repr__(self):
         return f"<Member {self.full_name}>"
-# =====================================
+
+
+
 # Donation Model
 # =====================================
 

@@ -34,7 +34,7 @@ from routes.volunteer import volunteer_bp
 from routes.donate import donate_bp
 from routes.admin import admin_bp
 from routes.auth import auth_bp
-
+from routes.verify import verify_bp
 
 
 # =====================================
@@ -79,14 +79,13 @@ login_manager.init_app(app)
 
 login_manager.login_view = "auth.login"
 
-
 @login_manager.user_loader
 def load_user(user_id):
 
-    return Admin.query.get(
+    return db.session.get(
+        Admin,
         int(user_id)
     )
-
 
 # =====================================
 # Site Settings
@@ -113,6 +112,7 @@ app.register_blueprint(volunteer_bp)
 app.register_blueprint(donate_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(verify_bp)
 
 
 # =====================================

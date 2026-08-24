@@ -74,3 +74,42 @@ class Config:
         "gif",
         "webp"
     }
+    # =====================================
+    # Email Configuration
+    # =====================================
+
+    MAIL_SERVER = os.getenv(
+        "MAIL_SERVER",
+        "smtp.gmail.com"
+    )
+
+    MAIL_PORT = int(
+        os.getenv(
+            "MAIL_PORT",
+            "587"
+        )
+    )
+
+    MAIL_USERNAME = os.getenv(
+        "MAIL_USERNAME"
+    )
+
+    MAIL_PASSWORD = os.getenv(
+        "MAIL_PASSWORD"
+    )
+
+    MAIL_DEFAULT_SENDER = os.getenv(
+        "MAIL_DEFAULT_SENDER",
+        MAIL_USERNAME
+    )
+
+    MAIL_USE_TLS = True
+
+    # =====================================
+    # Website URL
+    # =====================================
+
+    SITE_URL = os.getenv(
+        "SITE_URL",
+        "http://127.0.0.1:5000"
+    )

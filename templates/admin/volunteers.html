@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <h2>Registered Members</h2>
 
 <br>
@@ -17,6 +16,7 @@
             <th>Name</th>
             <th>County</th>
             <th>Driver</th>
+            <th>Registration No.</th>
             <th>Status</th>
             <th>Joined</th>
             <th>Action</th>
@@ -44,6 +44,28 @@
 
             </td>
 
+            <!-- Registration Number -->
+
+            <td>
+
+                {% if member.member_id %}
+
+                    <strong>
+                        {{ member.member_id }}
+                    </strong>
+
+                {% else %}
+
+                    <span style="color:#999;">
+                        Not assigned
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <!-- Status -->
+
             <td>
 
                 {% if member.status == "Approved" %}
@@ -68,11 +90,15 @@
 
             </td>
 
+            <!-- Joined -->
+
             <td>
 
                 {{ member.created_at.strftime("%d %b %Y") }}
 
             </td>
+
+            <!-- Action -->
 
             <td>
 

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Verify Driver{% endblock %}
+
+{% block content %}
+
+<section class="membership-section">
+
+    <div class="membership-container">
+
+        <div class="membership-card">
+
+            <div class="membership-card-header">
+
+                <h2>Verify RTFS Driver</h2>
+
+                <p>
+                    Verify whether a truck driver is an
+                    approved member of the Resilient Truckers
+                    Foundation.
+                </p>
+
+            </div>
+
+
+            <!-- Verification Form -->
+
+            <form method="POST">
+
+                <div class="form-group">
+
+                    <label for="member_id">
+                        RTFS Registration Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member_id"
+                        name="member_id"
+                        placeholder="e.g. RTFS-0001"
+                        value="{{ searched_id }}"
+                        required
+                    >
+
+                    <small>
+                        Enter the driver's official RTFS
+                        registration number.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="membership-btn"
+                >
+                    Verify Driver
+                </button>
+
+            </form>
+
+
+            <!-- =====================================
+                 VERIFICATION RESULT
+            ====================================== -->
+
+            {% if searched_id %}
+
+                {% if member %}
+
+                    <div
+                        style="
+                            margin-top:30px;
+                            padding:25px;
+                            border-radius:10px;
+                            background:#eaf8ee;
+                            border:1px solid #b7e4c7;
+                        "
+                    >
+
+                        <h3 style="color:green;">
+                            ✅ Verified Driver
+                        </h3>
+
+                        <p>
+                            <strong>
+                                This driver is an approved
+                                member of the Resilient
+                                Truckers Foundation.
+                            </strong>
+                        </p>
+
+                        <hr>
+
+                        <p>
+                            <strong>Name:</strong>
+                            {{ member.full_name }}
+                        </p>
+
+                        <p>
+                            <strong>RTFS Registration:</strong>
+                            {{ member.member_id }}
+                        </p>
+
+                        <p>
+                            <strong>County:</strong>
+                            {{ member.county }}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            <span style="color:green;">
+                                Approved
+                            </span>
+                        </p>
+
+                    </div>
+
+                {% else %}
+
+                    <div
+                        style="
+                            margin-top:30px;
+                            padding:25px;
+                            border-radius:10px;
+                            background:#fff0f0;
+                            border:1px solid #f0b8b8;
+                        "
+                    >
+
+                        <h3 style="color:#c62828;">
+                            ❌ Driver Not Verified
+                        </h3>
+
+                        <p>
+                            No approved RTFS truck driver was
+                            found with registration number:
+                        </p>
+
+                        <strong>
+                            {{ searched_id }}
+                        </strong>
+
+                        <p style="margin-top:15px;">
+                            Please check the registration number
+                            and try again.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

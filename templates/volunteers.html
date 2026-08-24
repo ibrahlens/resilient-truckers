@@ -24,76 +24,58 @@
             </h1>
 
             <p class="lead">
-
                 Join the
                 <strong>Resilient Truckers Foundation</strong>
                 and become part of a community working to support
                 truck drivers, promote road safety and strengthen
                 communities across Kenya.
-
             </p>
-
-            <!-- IMPACT BOX -->
 
             <div class="membership-impact">
 
                 <div class="membership-impact-item">
-
                     <div class="membership-impact-icon">
                         🚛
                     </div>
 
                     <div>
-
                         <h4>Support Truck Drivers</h4>
 
                         <p>
                             Help improve the welfare and wellbeing
                             of truck drivers and their families.
                         </p>
-
                     </div>
-
                 </div>
 
-
                 <div class="membership-impact-item">
-
                     <div class="membership-impact-icon">
                         🛣️
                     </div>
 
                     <div>
-
                         <h4>Promote Road Safety</h4>
 
                         <p>
                             Contribute to initiatives that promote
                             safer roads and responsible driving.
                         </p>
-
                     </div>
-
                 </div>
 
-
                 <div class="membership-impact-item">
-
                     <div class="membership-impact-icon">
                         🤝
                     </div>
 
                     <div>
-
                         <h4>Build Stronger Communities</h4>
 
                         <p>
                             Connect with people who share the vision
                             of creating positive change.
                         </p>
-
                     </div>
-
                 </div>
 
             </div>
@@ -119,9 +101,7 @@
             </div>
 
 
-            <!-- =====================================
-                 FLASH MESSAGES
-            ====================================== -->
+            <!-- FLASH MESSAGES -->
 
             {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -130,9 +110,7 @@
                     {% for category, message in messages %}
 
                         <div class="flash {{ category }}">
-
                             {{ message }}
-
                         </div>
 
                     {% endfor %}
@@ -171,8 +149,6 @@
                 </div>
 
 
-                <!-- Full Name -->
-
                 <div class="form-group">
 
                     <label for="full_name">
@@ -191,8 +167,6 @@
                 </div>
 
 
-                <!-- Email -->
-
                 <div class="form-group">
 
                     <label for="email">
@@ -210,8 +184,6 @@
 
                 </div>
 
-
-                <!-- Phone -->
 
                 <div class="form-group">
 
@@ -235,8 +207,6 @@
                 </div>
 
 
-                <!-- County -->
-
                 <div class="form-group">
 
                     <label for="county">
@@ -253,8 +223,6 @@
 
                 </div>
 
-
-                <!-- Occupation -->
 
                 <div class="form-group">
 
@@ -286,7 +254,7 @@
                         <h3>Transport Information</h3>
 
                         <p>
-                            Complete this section if applicable.
+                            Complete this section if you are a truck driver.
                         </p>
 
                     </div>
@@ -315,78 +283,109 @@
                 </div>
 
 
-                <!-- Vehicle -->
+                <!-- Driver Fields -->
 
-                <div class="form-group">
-
-                    <label for="vehicle_registration">
-                        Vehicle Registration Number
-                        <span>(Optional)</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="vehicle_registration"
-                        name="vehicle_registration"
-                        placeholder="e.g. KDA 123A"
-                    >
-
-                </div>
+                <div id="driverFields">
 
 
-                <!-- Driving License -->
+                    <!-- Vehicle -->
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label for="driving_license">
-                        Driving License Number
-                        <span>(Optional)</span>
-                    </label>
+                        <label for="vehicle_registration">
 
-                    <input
-                        type="text"
-                        id="driving_license"
-                        name="driving_license"
-                        placeholder="Enter your license number"
-                    >
+                            Vehicle Registration Number
 
-                </div>
+                            <span
+                                id="vehicleRequired"
+                                style="display:none;"
+                            >
+                                *
+                            </span>
 
+                            <span id="vehicleOptional">
+                                (Optional)
+                            </span>
 
-                <!-- Company -->
+                        </label>
 
-                <div class="form-group">
+                        <input
+                            type="text"
+                            id="vehicle_registration"
+                            name="vehicle_registration"
+                            placeholder="e.g. KDA 123A"
+                        >
 
-                    <label for="company">
-                        Company / SACCO
-                        <span>(Optional)</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        placeholder="Company or SACCO name"
-                    >
-
-                </div>
+                    </div>
 
 
-                <!-- Experience -->
+                    <!-- Driving Licence -->
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label for="experience">
-                        Years of Experience
-                        <span>(Optional)</span>
-                    </label>
+                        <label for="driving_license">
 
-                    <input
-                        type="text"
-                        id="experience"
-                        name="experience"
-                        placeholder="e.g. 5 years"
-                    >
+                            Driving Licence Number
+
+                            <span
+                                id="licenseRequired"
+                                style="display:none;"
+                            >
+                                *
+                            </span>
+
+                            <span id="licenseOptional">
+                                (Optional)
+                            </span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="driving_license"
+                            name="driving_license"
+                            placeholder="Enter your licence number"
+                        >
+
+                    </div>
+
+
+                    <!-- Company -->
+
+                    <div class="form-group">
+
+                        <label for="company">
+                            Company / SACCO
+                            <span>(Optional)</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            placeholder="Company or SACCO name"
+                        >
+
+                    </div>
+
+
+                    <!-- Experience -->
+
+                    <div class="form-group">
+
+                        <label for="experience">
+                            Years of Experience
+                            <span>(Optional)</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="experience"
+                            name="experience"
+                            placeholder="e.g. 5 years"
+                        >
+
+                    </div>
 
                 </div>
 
@@ -411,8 +410,6 @@
 
                 </div>
 
-
-                <!-- Joining Reason -->
 
                 <div class="form-group">
 
@@ -474,8 +471,6 @@
                 </div>
 
 
-                <!-- Additional Information -->
-
                 <div class="form-group">
 
                     <label for="reason">
@@ -525,6 +520,13 @@
                     Resilient Truckers Foundation team before
                     your membership is approved.
 
+                    <br><br>
+
+                    <strong>
+                        🚛 Approved truck drivers will receive
+                        an official RTFS registration number.
+                    </strong>
+
                 </p>
 
             </form>
@@ -534,5 +536,78 @@
     </div>
 
 </section>
+
+
+<!-- =====================================
+     DRIVER FIELD BEHAVIOUR
+====================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const driverCheckbox =
+        document.getElementById("is_driver");
+
+    const vehicleInput =
+        document.getElementById("vehicle_registration");
+
+    const licenseInput =
+        document.getElementById("driving_license");
+
+    const vehicleRequired =
+        document.getElementById("vehicleRequired");
+
+    const licenseRequired =
+        document.getElementById("licenseRequired");
+
+    const vehicleOptional =
+        document.getElementById("vehicleOptional");
+
+    const licenseOptional =
+        document.getElementById("licenseOptional");
+
+
+    function updateDriverFields() {
+
+        if (driverCheckbox.checked) {
+
+            vehicleInput.required = true;
+            licenseInput.required = true;
+
+            vehicleRequired.style.display = "inline";
+            licenseRequired.style.display = "inline";
+
+            vehicleOptional.style.display = "none";
+            licenseOptional.style.display = "none";
+
+        } else {
+
+            vehicleInput.required = false;
+            licenseInput.required = false;
+
+            vehicleRequired.style.display = "none";
+            licenseRequired.style.display = "none";
+
+            vehicleOptional.style.display = "inline";
+            licenseOptional.style.display = "inline";
+
+            vehicleInput.value = "";
+            licenseInput.value = "";
+        }
+    }
+
+
+    driverCheckbox.addEventListener(
+        "change",
+        updateDriverFields
+    );
+
+
+    updateDriverFields();
+
+});
+
+</script>
 
 {% endblock %}

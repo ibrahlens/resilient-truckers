@@ -30,6 +30,8 @@ from models import (
     Program
 )
 
+from utils.email import send_driver_approval_email
+
 from sqlalchemy import func, extract
 from datetime import datetime, timezone
 
@@ -327,6 +329,7 @@ def view_member(id):
         "admin/view_member.html",
         member=member
     )
+
 # =====================================
 # Approve Member
 # =====================================
@@ -337,18 +340,120 @@ def approve_member(id):
 
     member = Member.query.get_or_404(id)
 
+    # =====================================
+    # Prevent duplicate approval
+    # =====================================
+
+    if member.status == "Approved" and member.member_id:
+
+        flash(
+            f"Member is already approved as "
+            f"{member.member_id}.",
+            "info"
+        )
+
+        return redirect(
+            url_for("admin.view_member", id=id)
+        )
+
+    # =====================================
+    # Find highest existing RTFS number
+    # =====================================
+
+    existing_members = Member.query.filter(
+        Member.member_id.isnot(None)
+    ).all()
+
+    highest_number = 0
+
+    for existing_member in existing_members:
+
+        try:
+
+            registration_number = (
+                existing_member.member_id
+                .replace("RTFS-", "")
+            )
+
+            number = int(registration_number)
+
+            if number > highest_number:
+                highest_number = number
+
+        except (ValueError, AttributeError):
+
+            # Ignore malformed or unexpected IDs
+            continue
+
+    # =====================================
+    # Generate next RTFS registration number
+    # =====================================
+
+    next_number = highest_number + 1
+
+    member.member_id = (
+        f"RTFS-{next_number:04d}"
+    )
+
+    # =====================================
+    # Approve member
+    # =====================================
+
     member.status = "Approved"
+
+    # =====================================
+    # Save approval
+    # =====================================
 
     db.session.commit()
 
-    flash(
-        "Member approved successfully.",
-        "success"
-    )
+    # =====================================
+    # Send approval email
+    # =====================================
+
+    try:
+
+        send_driver_approval_email(
+            recipient_email=member.email,
+            driver_name=member.full_name,
+            member_id=member.member_id
+        )
+
+        flash(
+            f"Member approved successfully. "
+            f"Registration number: "
+            f"{member.member_id}. "
+            f"Approval email sent.",
+            "success"
+        )
+
+    except Exception as e:
+
+        print(
+            "\n========== DRIVER EMAIL ERROR =========="
+        )
+
+        print(e)
+
+        import traceback
+
+        traceback.print_exc()
+
+        print(
+            "=========================================\n"
+        )
+
+        flash(
+            f"Member approved successfully as "
+            f"{member.member_id}, but the approval "
+            f"email could not be sent.",
+            "warning"
+        )
 
     return redirect(
         url_for("admin.view_member", id=id)
     )
+
 
 
 # =====================================
