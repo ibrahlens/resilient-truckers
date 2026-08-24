@@ -77,29 +77,12 @@ class Config:
     # Email Configuration
     # =====================================
 
-    MAIL_SERVER = os.getenv(
-        "MAIL_SERVER",
-        "smtp.gmail.com"
-    )
-
-    MAIL_PORT = int(
-        os.getenv(
-            "MAIL_PORT",
-            "587"
-        )
-    )
-
-    MAIL_USERNAME = os.getenv(
-        "MAIL_USERNAME"
-    )
-
-    MAIL_PASSWORD = os.getenv(
-        "MAIL_PASSWORD"
+    RESEND_API_KEY = os.getenv(
+        "RESEND_API_KEY"
     )
 
     MAIL_DEFAULT_SENDER = os.getenv(
-        "MAIL_DEFAULT_SENDER",
-        MAIL_USERNAME
+        "MAIL_DEFAULT_SENDER"
     )
 
     SITE_URL = os.getenv(

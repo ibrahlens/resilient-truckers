@@ -1,7 +1,4 @@
-import smtplib
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import resend
 
 from flask import current_app
 
@@ -12,57 +9,42 @@ def send_driver_approval_email(
     member_id
 ):
     """
-    Send an approval email to an approved RTFS driver.
+    Send an approval email to an approved RTFS driver
+    using the Resend HTTP API.
     """
 
-    mail_server = current_app.config.get(
-        "MAIL_SERVER"
-    )
-
-    mail_port = current_app.config.get(
-        "MAIL_PORT"
-    )
-
-    mail_username = current_app.config.get(
-        "MAIL_USERNAME"
-    )
-
-    mail_password = current_app.config.get(
-        "MAIL_PASSWORD"
-    )
-
-    mail_sender = current_app.config.get(
-        "MAIL_DEFAULT_SENDER"
+    resend_api_key = current_app.config.get("RESEND_API_KEY")
+    mail_sender = current_app.config.get("MAIL_DEFAULT_SENDER")
+    site_url = current_app.config.get(
+        "SITE_URL",
+        "http://127.0.0.1:5000"
     )
 
     # -------------------------------------
     # Check email configuration
     # -------------------------------------
 
-    if not mail_username or not mail_password:
-
+    if not resend_api_key:
         raise ValueError(
-            "Email service is not configured. "
-            "Set MAIL_USERNAME and MAIL_PASSWORD."
+            "RESEND_API_KEY is not configured."
+        )
+
+    if not mail_sender:
+        raise ValueError(
+            "MAIL_DEFAULT_SENDER is not configured."
         )
 
     # -------------------------------------
-    # Create email
+    # Configure Resend
     # -------------------------------------
 
-    message = MIMEMultipart("alternative")
-
-    message["Subject"] = (
-        "Your RTFS Membership Has Been Approved"
-    )
-
-    message["From"] = mail_sender
-
-    message["To"] = recipient_email
+    resend.api_key = resend_api_key
 
     # -------------------------------------
-    # Plain-text version
+    # Email content
     # -------------------------------------
+
+    subject = "Your RTFS Membership Has Been Approved"
 
     text_body = f"""
 Dear {driver_name},
@@ -80,16 +62,12 @@ You can use this registration number to verify
 your membership with the Resilient Truckers Foundation.
 
 Verification:
-{current_app.config.get("SITE_URL", "")}/verify
+{site_url}/verify
 
 Welcome to the Resilient Truckers Foundation.
 
 Resilience in Every Mile.
 """
-
-    # -------------------------------------
-    # HTML version
-    # -------------------------------------
 
     html_body = f"""
 <html>
@@ -117,7 +95,7 @@ your membership with the Resilient Truckers Foundation.
 </p>
 
 <p>
-<a href="{current_app.config.get("SITE_URL", "")}/verify">
+<a href="{site_url}/verify">
 Verify Your RTFS Membership
 </a>
 </p>
@@ -134,40 +112,16 @@ Welcome to the Resilient Truckers Foundation.
 </html>
 """
 
-    message.attach(
-        MIMEText(
-            text_body,
-            "plain"
-        )
-    )
-
-    message.attach(
-        MIMEText(
-            html_body,
-            "html"
-        )
-    )
-
     # -------------------------------------
-    # Send email
+    # Send through Resend HTTPS API
     # -------------------------------------
 
-    with smtplib.SMTP(
-        mail_server,
-        int(mail_port),
-        timeout=15
-    ) as server:
+    response = resend.Emails.send({
+        "from": mail_sender,
+        "to": [recipient_email],
+        "subject": subject,
+        "text": text_body,
+        "html": html_body,
+    })
 
-
-        server.starttls()
-
-        server.login(
-            mail_username,
-            mail_password
-        )
-
-        server.sendmail(
-            mail_sender,
-            recipient_email,
-            message.as_string()
-        )
+    return response
