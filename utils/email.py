@@ -154,8 +154,10 @@ Welcome to the Resilient Truckers Foundation.
 
     with smtplib.SMTP(
         mail_server,
-        mail_port
+        int(mail_port),
+        timeout=15
     ) as server:
+
 
         server.starttls()
 

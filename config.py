@@ -24,14 +24,12 @@ class Config:
     DATABASE_URL = os.getenv("DATABASE_URL")
 
     if DATABASE_URL:
-        # Render PostgreSQL
         SQLALCHEMY_DATABASE_URI = DATABASE_URL.replace(
             "postgresql://",
             "postgresql+psycopg://",
             1
         )
     else:
-        # Local development - SQLite
         SQLALCHEMY_DATABASE_URI = (
             "sqlite:///"
             + os.path.join(
@@ -74,6 +72,7 @@ class Config:
         "gif",
         "webp"
     }
+
     # =====================================
     # Email Configuration
     # =====================================
@@ -102,12 +101,6 @@ class Config:
         "MAIL_DEFAULT_SENDER",
         MAIL_USERNAME
     )
-
-    MAIL_USE_TLS = True
-
-    # =====================================
-    # Website URL
-    # =====================================
 
     SITE_URL = os.getenv(
         "SITE_URL",
